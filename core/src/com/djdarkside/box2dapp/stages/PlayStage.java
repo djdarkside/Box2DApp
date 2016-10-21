@@ -32,6 +32,7 @@ public class PlayStage implements Screen {
     private Body player;
     private Box2DDebugRenderer b2dr;
     private TextureRegion region, bkgReg;
+    private Hud hud;
 
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
@@ -44,6 +45,7 @@ public class PlayStage implements Screen {
     public PlayStage(Application app) {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
+        hud = new Hud(app.batch);
     }
 
     @Override
@@ -92,6 +94,10 @@ public class PlayStage implements Screen {
         app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
                 (player.getPosition().y * Constants.PPM) - (region.getRegionHeight() / 2));
         app.batch.end();
+
+        app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
+
     }
 
     public void update(float delta) {
@@ -106,6 +112,9 @@ public class PlayStage implements Screen {
 
         tmr.setView(app.camera);
         app.batch.setProjectionMatrix(app.camera.combined);
+
+        hud.update(delta);
+
     }
 
     @Override
@@ -135,6 +144,7 @@ public class PlayStage implements Screen {
         tmr.dispose();
         map.dispose();
         stage.dispose();
+        hud.dispose();
     }
 
     public void inputUpdate(float delta) {
@@ -149,5 +159,9 @@ public class PlayStage implements Screen {
             player.applyForceToCenter(0, 300, false);
         }
         player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+    }
+
+    public Hud getHud() {
+        return hud;
     }
 }

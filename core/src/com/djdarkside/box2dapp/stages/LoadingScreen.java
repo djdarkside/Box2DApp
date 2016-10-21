@@ -3,8 +3,10 @@ package com.djdarkside.box2dapp.stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
@@ -23,9 +25,11 @@ public class LoadingScreen implements Screen {
     public static final String MAP = "maps/test_map_2.tmx";
 
     private float progress;
+    private ShapeRenderer renderer;
 
     public LoadingScreen(final Application app) {
         this.app = app;
+        renderer = new ShapeRenderer();
     }
 
     private void queueAssets() {
@@ -60,8 +64,19 @@ public class LoadingScreen implements Screen {
 
         update(delta);
 
+        // Loading Bar
+        // Empty
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.setColor(Color.BLACK);
+        renderer.rect(32, app.camera.viewportHeight / 10 - 8, Constants.V_WIDTH - 64, 16);
+        //Full - Fills when assets are loaded
+        renderer.setColor(Color.BLUE);
+        renderer.rect(32, app.camera.viewportHeight / 10 - 8, progress * (Constants.V_WIDTH - 64), 16);
+        renderer.end();
+        //End Loading Bar
+
         app.batch.begin();
-        app.font.draw(app.batch, "Loading", Constants.V_WIDTH / 2 - 24, 54);
+        app.font.draw(app.batch, "Loading...", Constants.V_WIDTH / 2 - 24, 64);
         app.batch.end();
     }
 
@@ -87,6 +102,6 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        renderer.dispose();
     }
 }
