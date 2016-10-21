@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="5">
+ <tileset firstgid="1" name="Test" tilewidth="0" tileheight="0" tilecount="0" columns="0"/>
+ <tileset firstgid="1" name="spritesheet_complete" tilewidth="32" tileheight="32" tilecount="8192" columns="128">
+  <image source="spritesheet_complete.png" trans="ff00ff" width="4096" height="2048"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="80" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztx8ENgCAUBcFXBLQj0rhKZ/4WuJKZZA+bAAAAAAAAnOVpyVt91Wp+96+ejOquZve7/wM601yB
+  </data>
+ </layer>
+ <objectgroup name="collision-layer">
+  <object id="3" x="-1.33195" y="544">
+   <polyline points="1.33195,128 2561.33,128"/>
+  </object>
+  <object id="4" x="2560" y="638.667">
+   <polyline points="0,33.333 0,-638.667 -2560,-638.667 -2560,1.33333"/>
+  </object>
+ </objectgroup>
+</map>
