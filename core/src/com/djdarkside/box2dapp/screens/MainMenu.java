@@ -53,7 +53,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update(delta);
@@ -63,7 +63,7 @@ public class MainMenu implements Screen {
 
     private void initButtons() {
         buttonPlay = new TextButton("Play", skin, "default");
-        buttonPlay.setPosition(110, 260);
+        buttonPlay.setPosition(Constants.V_WIDTH / 2 - 140, 260);
         buttonPlay.setSize(280, 60);
         buttonPlay.addAction(sequence(alpha(0), parallel(fadeIn(.5f), moveBy(0, -20, .5f, Interpolation.pow5Out))));
         buttonPlay.addListener(new ClickListener() {
@@ -74,7 +74,7 @@ public class MainMenu implements Screen {
         });
 
         buttonExit = new TextButton("Exit", skin, "default");
-        buttonExit.setPosition(110, 190);
+        buttonExit.setPosition(Constants.V_WIDTH / 2 - 140, 190);
         buttonExit.setSize(280, 60);
         buttonExit.addAction(sequence(alpha(0), parallel(fadeIn(.5f), moveBy(0, -20, .5f, Interpolation.pow5Out))));
         buttonExit.addListener(new ClickListener() {
@@ -90,7 +90,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        app.camera.setToOrtho(false, width / Constants.SCALE, height / Constants.SCALE);
     }
 
     @Override

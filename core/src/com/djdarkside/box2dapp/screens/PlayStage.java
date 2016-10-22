@@ -88,7 +88,7 @@ public class PlayStage implements Screen {
         app.batch.end();
 
         tmr.render();
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         app.batch.begin();
         app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
