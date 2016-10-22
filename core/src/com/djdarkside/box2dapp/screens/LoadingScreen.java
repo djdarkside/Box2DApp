@@ -1,4 +1,4 @@
-package com.djdarkside.box2dapp.stages;
+package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,10 +6,12 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Json;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.utils.Constants;
 
@@ -24,6 +26,10 @@ public class LoadingScreen implements Screen {
     public static final String BACKGROUND = "maps/bg_volcano.png";
     public static final String MAP = "maps/test_map_2.tmx";
 
+    public static final String UISKINATTLAS = "ui/uiskin.atlas";
+    public static final String UISKINJSON = "ui/uiskin.json";
+    public static final String UISKIN= "ui/uiskin.png";
+
     private float progress;
     private ShapeRenderer renderer;
 
@@ -37,24 +43,24 @@ public class LoadingScreen implements Screen {
         app.manager.load(BACKGROUND, Texture.class);
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);
+
+        app.manager.load(UISKINATTLAS, TextureAtlas.class);
+        app.manager.load(UISKIN, Texture.class);
+
+
     }
 
     public void update(float delta) {
         progress = MathUtils.lerp(progress, app.manager.getProgress(), .1f);
         if (app.manager.update() && progress >= app.manager.getProgress() - .01f) {
-            app.setScreen(app.pStage);
+            app.setScreen(app.mStage);
         }
     }
 
     @Override
     public void show() {
-        System.out.println("Loading Screen");
-        this.progress = 0f;
+        progress = 0f;
         queueAssets();
-        while(!app.manager.update()) {
-            System.out.println(app.manager.getProgress() * 100 + "%");
-        }
-
     }
 
     @Override
@@ -82,7 +88,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        app.camera.setToOrtho(false, width / Constants.SCALE, height / Constants.SCALE);
     }
 
     @Override

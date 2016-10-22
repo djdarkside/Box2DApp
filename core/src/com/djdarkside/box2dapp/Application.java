@@ -6,18 +6,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.djdarkside.box2dapp.stages.LoadingScreen;
-import com.djdarkside.box2dapp.stages.PlayStage;
+import com.djdarkside.box2dapp.screens.LoadingScreen;
+import com.djdarkside.box2dapp.screens.MainMenu;
+import com.djdarkside.box2dapp.screens.PlayStage;
 import com.djdarkside.box2dapp.utils.Constants;
 
 public class Application extends Game {
 
     public PlayStage pStage;
     public LoadingScreen lStage;
+    public MainMenu mStage;
 
     public OrthographicCamera camera;
     public SpriteBatch batch;
-    public BitmapFont font;
+    public static BitmapFont font;
     public AssetManager manager;
 
 	@Override
@@ -30,6 +32,7 @@ public class Application extends Game {
         font.setColor(Color.WHITE);
         pStage = new PlayStage(this);
         lStage = new LoadingScreen(this);
+        mStage = new MainMenu(this);
         this.setScreen(lStage);
 	}
 

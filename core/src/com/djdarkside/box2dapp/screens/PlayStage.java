@@ -1,4 +1,4 @@
-package com.djdarkside.box2dapp.stages;
+package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
