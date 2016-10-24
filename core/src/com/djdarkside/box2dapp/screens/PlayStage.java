@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
+import com.djdarkside.box2dapp.entities.Player;
 import com.djdarkside.box2dapp.utils.WorldUtils;
 import com.djdarkside.box2dapp.utils.CameraStyles;
 import com.djdarkside.box2dapp.utils.Constants;
@@ -29,7 +30,9 @@ public class PlayStage implements Screen {
     private final Application app;
 
     private World world;
-    private Body player;
+    //private Body player;
+    private Player player;
+
     private Box2DDebugRenderer b2dr;
     private TextureRegion region, bkgReg;
     private Hud hud;
@@ -46,6 +49,7 @@ public class PlayStage implements Screen {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
         hud = new Hud(app.batch);
+        player = new Player(app, world);
     }
 
     @Override
@@ -53,16 +57,16 @@ public class PlayStage implements Screen {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        region = new TextureRegion(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+        //region = new TextureRegion(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        //region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
         bkgReg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
         bkgReg.setRegion(0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
 
-        player = WorldUtils.createCircle(world, 140, 140, 8, false, false, 1.0f);
-        player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+        WorldUtils.createCircle(world, 140, 140, 8, false, false, 1.0f);
+        //player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
 
 
         map = app.manager.get(LoadingScreen.MAP);
@@ -83,6 +87,8 @@ public class PlayStage implements Screen {
 
         update(delta);
 
+        player.render(delta);
+
         stage.draw();
 
         app.batch.begin();
@@ -93,10 +99,10 @@ public class PlayStage implements Screen {
         tmr.render();
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
-        app.batch.begin();
-        app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
-                (player.getPosition().y * Constants.PPM) - (region.getRegionHeight() / 2));
-        app.batch.end();
+        //app.batch.begin();
+        //app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
+        //        (player.getPosition().y * Constants.PPM) - (region.getRegionHeight() / 2));
+        //app.batch.end();
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -117,7 +123,6 @@ public class PlayStage implements Screen {
 
         hud.update(delta);
 
-        System.out.println(player.getPosition().y * Constants.PPM);
     }
 
     @Override
