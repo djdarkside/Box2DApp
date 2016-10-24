@@ -2,6 +2,7 @@ package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.utils.Constants;
@@ -44,10 +46,8 @@ public class LoadingScreen implements Screen {
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);
 
-        app.manager.load(UISKINATTLAS, TextureAtlas.class);
         app.manager.load(UISKIN, Texture.class);
-
-
+        app.manager.load(UISKINATTLAS, TextureAtlas.class);
     }
 
     public void update(float delta) {

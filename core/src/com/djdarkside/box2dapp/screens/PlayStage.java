@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
-import com.djdarkside.box2dapp.utils.B2DShapeGenerator;
+import com.djdarkside.box2dapp.utils.WorldUtils;
 import com.djdarkside.box2dapp.utils.CameraStyles;
 import com.djdarkside.box2dapp.utils.Constants;
 import com.djdarkside.box2dapp.utils.TiledObjectUtil;
@@ -58,10 +58,12 @@ public class PlayStage implements Screen {
         bkgReg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
         bkgReg.setRegion(0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
 
-        world = new World(new Vector2(0, Constants.gravity), false);
+        world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
 
-        player = B2DShapeGenerator.createBox(world, 140, 140, 32, 32, false);
+        player = WorldUtils.createCircle(world, 140, 140, 8, false, false, 1.0f);
+        player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+
 
         map = app.manager.get(LoadingScreen.MAP);
         tmr = new OrthogonalTiledMapRenderer(map);
@@ -85,10 +87,11 @@ public class PlayStage implements Screen {
 
         app.batch.begin();
         app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
+        app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth() + bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
         app.batch.end();
 
         tmr.render();
-        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         app.batch.begin();
         app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
@@ -97,7 +100,6 @@ public class PlayStage implements Screen {
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-
     }
 
     public void update(float delta) {
@@ -115,26 +117,23 @@ public class PlayStage implements Screen {
 
         hud.update(delta);
 
+        System.out.println(player.getPosition().y * Constants.PPM);
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override

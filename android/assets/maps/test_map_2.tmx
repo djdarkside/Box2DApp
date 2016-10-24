@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="5">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="9">
  <tileset firstgid="1" name="Test" tilewidth="0" tileheight="0" tilecount="0" columns="0"/>
  <tileset firstgid="1" name="spritesheet_complete" tilewidth="32" tileheight="32" tilecount="8192" columns="128">
   <image source="spritesheet_complete.png" trans="ff00ff" width="4096" height="2048"/>
  </tileset>
+ <tileset firstgid="8193" name="dawn_of_the_gods" tilewidth="32" tileheight="32" tilecount="1927" columns="41">
+  <image source="dawn_of_the_gods.png" trans="ff00ff" width="1312" height="1504"/>
+ </tileset>
  <layer name="Tile Layer 1" width="80" height="22">
   <data encoding="base64" compression="zlib">
-   eJztx8ENgCAUBcFXBLQj0rhKZ/4WuJKZZA+bAAAAAAAAnOVpyVt91Wp+96+ejOquZve7/wM601yB
+   eJzt2EtP1FAYxvHXmLhyLfGCnk6ZTuKereJlQGShiYm6YqV4B0QXalBA2XjZ6xcAEXXjZQ8fQC4iLv0Mgjcg3v6NPWnPpJ3WyUwk9TzJL0zPnNOcedKStCI2NrVns/t34zZmWhN6Shq3MaN7eqxEJjCpzHGb6tE9zSmReSwoc9ymenRPq0pkDd+VOW5TPd1BTwVHxEXRMcdtkjNYFLmJWxjCMEZwG3cwWvzXO1zfGaOfcXRhAk8wiad4hue2v8S8oZsZzGIO83iLBbzDIt7b/ox8oo/P+IKv+IYVrOIl/+8+4BV+cPwTv/z+PJENXrg2j9mtss3bQQ/N2IldUHBQ8Mx5Hscl3KXLe7iPB25+r8djKtu8Mp20e3+uNf866+TzYXQF/Y0H5znC8VG8cMO5r+HmtL9BlW1eL530Ra61AT5fwdVgbDY4zzWOr+OGl7w2TxlT2eY95Pc/inTgvyNoK4TvClZU/Hjc2jxF33dpmeL3T0c6aA160s8ajhM/Hrc2LfV8f9Pod0H6vkuLv4/oXqI9faSbJSx78f1Vrk1LPZ//Gv0sqe+7tPj7iO6lO+jJ/7u1JLIN20vmeNLatNTz+a/Rz5L6vsuyD9/GFpE99LQXbdiH/TiAgyijHR04hE0t4drKHFciJ/4Tp+jiNHpwBmdxDudxARdxCb3oQz8uY6AUro2e7yS2FKxaNWX8vqkGceeq/L6W864Xev+/AXk5uTg=
   </data>
  </layer>
  <objectgroup name="collision-layer">
   <object id="3" x="-1.33195" y="544">
-   <polyline points="1.33195,128 2561.33,128"/>
+   <polyline points="1.33195,64 2561.33,64"/>
   </object>
   <object id="4" x="2560" y="638.667">
    <polyline points="0,33.333 0,-638.667 -2560,-638.667 -2560,1.33333"/>
   </object>
+  <object id="7" x="2048" y="606.5">
+   <polyline points="-96,1.5 -64,-30.5 64,-30.5 64,-94.5 160,-94.5 160,-30.5 288,-30.5 320,1.5 352,1.5 448,1.5 512,1.5"/>
+  </object>
+  <object id="8" x="1568" y="608">
+   <polyline points="0,0 0,-128 32,-128 32,0 0,0"/>
+  </object>
  </objectgroup>
+ <layer name="Tile Layer 2" width="80" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAAAAAACAlwEbgAAB
+  </data>
+ </layer>
 </map>

@@ -43,7 +43,7 @@ public class Application extends Game {
 
     @Override
 	public void resize(int width, int height) {
-        camera.setToOrtho(false, width / Constants.SCALE, height / Constants.SCALE);
+        //camera.setToOrtho(false, width / Constants.SCALE, height / Constants.SCALE);
     }
 	
 	@Override
@@ -52,4 +52,8 @@ public class Application extends Game {
         batch.dispose();
         font.dispose();
 	}
+
+	public SpriteBatch getBatch() {
+        return batch;
+    }
 }

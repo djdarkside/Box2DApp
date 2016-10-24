@@ -2,6 +2,7 @@ package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -30,7 +31,8 @@ public class MainMenu implements Screen {
     public MainMenu(final Application app) {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
-        this.renderer = new ShapeRenderer();
+        renderer = new ShapeRenderer();
+        skin = new Skin();
     }
 
     @Override
@@ -38,12 +40,9 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        skin = new Skin();
-        this.skin = new Skin();
-        this.skin.addRegions(app.manager.get("ui/uiskin.atlas", TextureAtlas.class));
-        this.skin.add("default-font", app.font);
-        this.skin.load(Gdx.files.internal("ui/uiskin.json"));
-
+        skin.addRegions(app.manager.get(LoadingScreen.UISKINATTLAS, TextureAtlas.class));
+        skin.add("default-font", app.font);
+        skin.load(Gdx.files.internal(LoadingScreen.UISKINJSON));
         initButtons();
     }
 
@@ -90,7 +89,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        app.camera.setToOrtho(false, width / Constants.SCALE, height / Constants.SCALE);
     }
 
     @Override
