@@ -88,8 +88,6 @@ public class PlayStage implements Screen {
 
         update(delta);
 
-
-
         stage.draw();
 
         app.batch.begin();
@@ -97,8 +95,11 @@ public class PlayStage implements Screen {
         app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth() + bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
         app.batch.end();
 
-        tmr.render();
+
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        player.render(delta, world, app.camera);
+        //tmr.render();
+
 
         //app.batch.begin();
         //app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
@@ -107,13 +108,14 @@ public class PlayStage implements Screen {
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        player.render(delta);
+        //
+
     }
 
     public void update(float delta) {
         world.step(1 / 60f, 6, 2);
         stage.act(delta);
-        inputUpdate(delta);
+        //inputUpdate(delta);
 
         CameraStyles.lerpToTarget(app.camera, player.getPosition().scl(Constants.PPM));
         float startX = app.camera.viewportWidth / 2;
@@ -124,7 +126,7 @@ public class PlayStage implements Screen {
         app.batch.setProjectionMatrix(app.camera.combined);
 
         hud.update(delta);
-
+        player.update(delta);
     }
 
     @Override
@@ -153,7 +155,7 @@ public class PlayStage implements Screen {
         hud.dispose();
     }
 
-    public void inputUpdate(float delta) {
+    /*public void inputUpdate(float delta) {
         int horizontalForce = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 1;
@@ -168,7 +170,7 @@ public class PlayStage implements Screen {
         //player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
         player.getPlayerBody().setLinearVelocity(horizontalForce * 5, player.getPlayerBody().getLinearVelocity().y);
     }
-
+    */
     public Hud getHud() {
         return hud;
     }

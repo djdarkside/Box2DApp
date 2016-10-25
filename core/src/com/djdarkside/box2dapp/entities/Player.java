@@ -1,5 +1,8 @@
 package com.djdarkside.box2dapp.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
@@ -25,22 +29,22 @@ public class Player {
     public playerState currentState;
     public playerState previousState;
 */
-
     private final Application app;
     public float x, y;
     public TextureRegion region;
     public Vector2 position;
     public World world;
     public Body playerBody;
-    public Texture tex;
+    private Box2DDebugRenderer b2dr;
+    private OrthographicCamera cam;
 
     public Player(final Application app, World world) {
         this.app = app;
         this.world = world;
         this.position = new Vector2(x, y);
+        b2dr = new Box2DDebugRenderer();
         world = WorldUtils.createWorld();
         initBody(world);
-        loadTexture();
     }
 
     public void loadTexture() {
@@ -58,15 +62,28 @@ public class Player {
     }
 
     public void update(float delta) {
-        //set input
+        inputUpdate(delta);
     }
 
-    public void render(float delta) {
+    public void render(float delta, World world, OrthographicCamera cam) {
+        this.cam = cam;
+        cam = app.camera;
         update(delta);
-        app.batch.begin();
-        app.batch.draw(region, (position.x * Constants.PPM) - (region.getRegionWidth() / 2),
-                (position.y * Constants.PPM) - (region.getRegionHeight() / 2));
-        app.batch.end();
+        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+    }
+
+    public void inputUpdate(float delta) {
+        int horizontalForce = 0;
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            horizontalForce -= 1;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            horizontalForce += 1;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            playerBody.applyForceToCenter(0, 300, false);
+        }
+        playerBody.setLinearVelocity(horizontalForce * 5, playerBody.getLinearVelocity().y);
     }
 
 
