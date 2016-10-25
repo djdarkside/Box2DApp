@@ -36,7 +36,6 @@ public class Player {
     public World world;
     public Body playerBody;
     private Box2DDebugRenderer b2dr;
-    private OrthographicCamera cam;
 
     public Player(final Application app, World world) {
         this.app = app;
@@ -57,19 +56,17 @@ public class Player {
     }
 
 
-    private void initBody(World world) {
+    private Body initBody(World world) {
         playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+        return playerBody;
     }
 
     public void update(float delta) {
         inputUpdate(delta);
     }
 
-    public void render(float delta, World world, OrthographicCamera cam) {
-        this.cam = cam;
-        cam = app.camera;
+    public void render(float delta, World world) {
         update(delta);
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
     }
 
     public void inputUpdate(float delta) {

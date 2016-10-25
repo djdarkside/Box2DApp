@@ -97,7 +97,7 @@ public class PlayStage implements Screen {
 
 
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
-        player.render(delta, world, app.camera);
+        player.render(delta, world);
         //tmr.render();
 
 
