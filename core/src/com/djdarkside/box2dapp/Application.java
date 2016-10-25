@@ -13,16 +13,16 @@ import com.djdarkside.box2dapp.utils.Constants;
 
 public class Application extends Game {
 
-    public PlayStage pStage;
-    public LoadingScreen lStage;
-    public MainMenu mStage;
-
     public OrthographicCamera camera;
     public SpriteBatch batch;
     public static BitmapFont font;
     public AssetManager manager;
 
-	@Override
+    public LoadingScreen lStage;
+    public MainMenu mStage;
+    public PlayStage pStage;
+
+    @Override
 	public void create () {
         manager = new AssetManager();
         camera = new OrthographicCamera();
@@ -30,9 +30,9 @@ public class Application extends Game {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        pStage = new PlayStage(this);
         lStage = new LoadingScreen(this);
         mStage = new MainMenu(this);
+        pStage = new PlayStage(this);
         this.setScreen(lStage);
 	}
 

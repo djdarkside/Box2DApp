@@ -28,7 +28,7 @@ public class LoadingScreen implements Screen {
     public static final String BACKGROUND = "maps/bg_volcano.png";
     public static final String MAP = "maps/test_map_2.tmx";
 
-    public static final String UISKINATTLAS = "ui/uiskin.atlas";
+    public static final String UISKINATLAS = "ui/uiskin.atlas";
     public static final String UISKINJSON = "ui/uiskin.json";
     public static final String UISKIN= "ui/uiskin.png";
 
@@ -41,13 +41,14 @@ public class LoadingScreen implements Screen {
     }
 
     private void queueAssets() {
+        System.out.println("QUEUE");
         app.manager.load(PLAYER, Texture.class);
         app.manager.load(BACKGROUND, Texture.class);
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);
 
         app.manager.load(UISKIN, Texture.class);
-        app.manager.load(UISKINATTLAS, TextureAtlas.class);
+        app.manager.load(UISKINATLAS, TextureAtlas.class);
     }
 
     public void update(float delta) {

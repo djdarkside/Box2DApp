@@ -40,7 +40,7 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
-        skin.addRegions(app.manager.get(LoadingScreen.UISKINATTLAS, TextureAtlas.class));
+        skin.addRegions(app.manager.get(LoadingScreen.UISKINATLAS, TextureAtlas.class));
         skin.add("default-font", app.font);
         skin.load(Gdx.files.internal(LoadingScreen.UISKINJSON));
         initButtons();

@@ -31,7 +31,7 @@ public class PlayStage implements Screen {
 
     private World world;
     //private Body player;
-    private Player player;
+
 
     private Box2DDebugRenderer b2dr;
     private TextureRegion region, bkgReg;
@@ -41,6 +41,7 @@ public class PlayStage implements Screen {
     private TiledMap map;
 
     private Stage stage;
+    private Player player;
 
     public int levelWidth = 0;
     public int levelHeight = 0;
@@ -87,7 +88,7 @@ public class PlayStage implements Screen {
 
         update(delta);
 
-        player.render(delta);
+
 
         stage.draw();
 
@@ -106,6 +107,7 @@ public class PlayStage implements Screen {
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        player.render(delta);
     }
 
     public void update(float delta) {
@@ -160,9 +162,11 @@ public class PlayStage implements Screen {
             horizontalForce += 1;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.applyForceToCenter(0, 300, false);
+            //player.applyForceToCenter(0, 300, false);
+            player.getPlayerBody().applyForceToCenter(0, 300, false);
         }
-        player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+        //player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+        player.getPlayerBody().setLinearVelocity(horizontalForce * 5, player.getPlayerBody().getLinearVelocity().y);
     }
 
     public Hud getHud() {
