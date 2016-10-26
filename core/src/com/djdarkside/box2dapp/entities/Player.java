@@ -41,23 +41,21 @@ public class Player {
         this.app = app;
         this.world = world;
         this.position = new Vector2(x, y);
-        b2dr = new Box2DDebugRenderer();
-        world = WorldUtils.createWorld();
-        initBody(world);
+        initBody();
     }
 
     public void loadTexture() {
-        System.out.println("LOADING");
-        System.out.println("1");
-        region = new TextureRegion(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        System.out.println("2");
-        region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
-        System.out.println("EXIT LOADING");
+
     }
 
+    public Vector2 setPosition(float x, float y) {
+        position.x = x * Constants.PPM;
+        position.y = y * Constants.PPM;
+        return position;
+    }
 
-    private Body initBody(World world) {
-        playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+    private Body initBody() {
+        playerBody = WorldUtils.createBox(world, 140, 140, 16, 32, false, true);
         return playerBody;
     }
 
@@ -65,8 +63,8 @@ public class Player {
         inputUpdate(delta);
     }
 
-    public void render(float delta, World world) {
-        update(delta);
+    public void render(float delta) {
+
     }
 
     public void inputUpdate(float delta) {

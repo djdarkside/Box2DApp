@@ -9,5 +9,5 @@ public final class Constants {
     public static final String TITLE = "Box2D";
     public static final float PPM = 32;
     public static final float GRAVITY = -9.8f;
-    public static final float SCALE = 3.0f;
+    public static final float SCALE = 2.0f;
 }
