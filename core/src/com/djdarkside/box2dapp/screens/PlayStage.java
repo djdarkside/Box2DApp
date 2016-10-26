@@ -30,7 +30,7 @@ public class PlayStage implements Screen {
     private final Application app;
 
     private World world;
-    //private Body player;
+    private Body player;
 
 
     private Box2DDebugRenderer b2dr;
@@ -41,7 +41,7 @@ public class PlayStage implements Screen {
     private TiledMap map;
 
     private Stage stage;
-    private Player player;
+    //private Player player;
 
     public int levelWidth = 0;
     public int levelHeight = 0;
@@ -50,16 +50,17 @@ public class PlayStage implements Screen {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
         hud = new Hud(app.batch);
-        player = new Player(app, world);
+        //player = new Player(app, world);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
-
-        //region = new TextureRegion(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        //region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+        // X THES OUT
+        region = new TextureRegion(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+        //
         bkgReg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
         bkgReg.setRegion(0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
 
@@ -67,8 +68,9 @@ public class PlayStage implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         WorldUtils.createCircle(world, 140, 140, 8, false, false, 1.0f);
-        //player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
-
+        // X THES OUT
+        player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+        //
 
         map = app.manager.get(LoadingScreen.MAP);
         tmr = new OrthogonalTiledMapRenderer(map);
@@ -97,25 +99,27 @@ public class PlayStage implements Screen {
 
 
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
-        player.render(delta, world);
-        //tmr.render();
+        //player.render(delta, world);
+        tmr.render();
 
-
-        //app.batch.begin();
-        //app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
-        //        (player.getPosition().y * Constants.PPM) - (region.getRegionHeight() / 2));
-        //app.batch.end();
+        // X THES OUT
+        app.batch.begin();
+        app.batch.draw(region, (player.getPosition().x * Constants.PPM) - (region.getRegionWidth() / 2),
+                (player.getPosition().y * Constants.PPM) - (region.getRegionHeight() / 2));
+        app.batch.end();
+        //
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        //
+
 
     }
 
     public void update(float delta) {
         world.step(1 / 60f, 6, 2);
         stage.act(delta);
-        //inputUpdate(delta);
+        // X THES OUT
+        inputUpdate(delta);
 
         CameraStyles.lerpToTarget(app.camera, player.getPosition().scl(Constants.PPM));
         float startX = app.camera.viewportWidth / 2;
@@ -126,7 +130,7 @@ public class PlayStage implements Screen {
         app.batch.setProjectionMatrix(app.camera.combined);
 
         hud.update(delta);
-        player.update(delta);
+        //player.update(delta);
     }
 
     @Override
@@ -155,7 +159,7 @@ public class PlayStage implements Screen {
         hud.dispose();
     }
 
-    /*public void inputUpdate(float delta) {
+    public void inputUpdate(float delta) {
         int horizontalForce = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 1;
@@ -165,12 +169,12 @@ public class PlayStage implements Screen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             //player.applyForceToCenter(0, 300, false);
-            player.getPlayerBody().applyForceToCenter(0, 300, false);
+            player.applyForceToCenter(0, 300, false);
         }
         //player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
-        player.getPlayerBody().setLinearVelocity(horizontalForce * 5, player.getPlayerBody().getLinearVelocity().y);
+        player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
     }
-    */
+
     public Hud getHud() {
         return hud;
     }
