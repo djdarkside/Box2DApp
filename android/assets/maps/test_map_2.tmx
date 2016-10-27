@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="9">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="23">
  <tileset firstgid="1" name="Test" tilewidth="0" tileheight="0" tilecount="0" columns="0"/>
  <tileset firstgid="1" name="spritesheet_complete" tilewidth="32" tileheight="32" tilecount="8192" columns="128">
   <image source="spritesheet_complete.png" trans="ff00ff" width="4096" height="2048"/>
@@ -24,6 +24,36 @@
   </object>
   <object id="8" x="1568" y="608">
    <polyline points="0,0 0,-128 32,-128 32,0 0,0"/>
+  </object>
+  <object id="9" x="902" y="514">
+   <polyline points="0,0 106,-2"/>
+  </object>
+  <object id="10" x="2110" y="94">
+   <polyline points="0,0 92,0"/>
+  </object>
+  <object id="11" x="1166" y="512">
+   <polyline points="0,0 122,-2"/>
+  </object>
+  <object id="12" x="408" y="356"/>
+  <object id="13" x="418" y="362" width="88" height="54"/>
+  <object id="14" x="590" y="364" width="76" height="72">
+   <ellipse/>
+  </object>
+  <object id="15" x="760" y="310">
+   <polygon points="0,0 0,60 96,50"/>
+  </object>
+  <object id="16" x="424" y="222" width="86" height="46"/>
+  <object id="17" x="436" y="104" width="96" height="44"/>
+  <object id="18" x="124" y="160" width="146" height="128">
+   <ellipse/>
+  </object>
+  <object id="19" x="138" y="358" width="124" height="112">
+   <ellipse/>
+  </object>
+  <object id="20" x="324" y="320" width="44" height="226"/>
+  <object id="21" x="468" y="582" width="140" height="60"/>
+  <object id="22" x="22" y="562" width="32" height="32">
+   <ellipse/>
   </object>
  </objectgroup>
  <layer name="Tile Layer 2" width="80" height="22">

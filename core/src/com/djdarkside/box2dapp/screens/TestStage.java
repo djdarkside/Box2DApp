@@ -75,7 +75,8 @@ public class TestStage implements Screen, ControllerListener {
         MapProperties props = map.getProperties();
         levelWidth = props.get("width", Integer.class);
         levelHeight = props.get("height", Integer.class);
-        TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
+        //TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
+        TiledObjectUtil.buildShapes(map, Constants.PPM, world);
     }
 
 
