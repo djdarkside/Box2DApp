@@ -12,7 +12,7 @@ public class WorldUtils {
         return new World(new Vector2(0, Constants.GRAVITY), true);
     }
 
-    public static Body createBox(World world, int xPos, int yPos, int width, int height, boolean isStatic, boolean fixed) {
+    public static Body createBox(World world, int xPos, int yPos, int width, int height, boolean isStatic, boolean fixed, float density) {
         Body pBody;
         BodyDef def = new BodyDef();
 
@@ -36,7 +36,7 @@ public class WorldUtils {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width / 2 / Constants.PPM, height / 2 / Constants.PPM);
 
-        pBody.createFixture(shape, 1.0f);
+        pBody.createFixture(shape, density);
         shape.dispose();
         return pBody;
     }

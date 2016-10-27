@@ -1,9 +1,12 @@
 package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,6 +15,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.entities.Player;
@@ -41,7 +46,7 @@ public class TestStage implements Screen {
 
     public TestStage(final Application app) {
         this.app = app;
-        stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
+        stage = new Stage(new FitViewport(Constants.V_WIDTH * Constants.SCALE, Constants.V_HEIGHT * Constants.SCALE));
         hud = new Hud(app.batch);
     }
 
@@ -58,8 +63,6 @@ public class TestStage implements Screen {
 
         player = new Player(app, world);
 
-        WorldUtils.createBox(world, 0, 50, (int) stage.getWidth(), 32, true, true);
-
         map = app.manager.get(LoadingScreen.MAP);
         tmr = new OrthogonalTiledMapRenderer(map);
 
@@ -68,6 +71,7 @@ public class TestStage implements Screen {
         levelHeight = props.get("height", Integer.class);
         TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
     }
+
 
     @Override
     public void render(float delta) {
@@ -100,11 +104,19 @@ public class TestStage implements Screen {
         CameraStyles.camBoundry(app.camera, startX, startY, levelWidth * Constants.PPM - startX * 2, levelHeight * Constants.PPM - startY * 2);
 
         tmr.setView(app.camera);
+
+        //Scales the BAckground and Sprites
         app.batch.setProjectionMatrix(app.camera.combined);
+
         hud.update(delta);
         player.update(delta);
 
-        System.out.println(player.getPlayerBody().getPosition());
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            app.camera.zoom += .1;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            app.camera.zoom -= .1;
+        }
 
     }
 
@@ -135,4 +147,5 @@ public class TestStage implements Screen {
         stage.dispose();
         hud.dispose();
     }
+
 }

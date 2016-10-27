@@ -68,7 +68,7 @@ public class PlayStage implements Screen {
 
         WorldUtils.createCircle(world, 140, 140, 8, false, false, 1.0f);
         // X THES OUT
-        player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true);
+        player = WorldUtils.createBox(world, 140, 140, 32, 32, false, true, 1.0f);
         //
 
         map = app.manager.get(LoadingScreen.MAP);
@@ -79,6 +79,8 @@ public class PlayStage implements Screen {
         levelHeight = props.get("height", Integer.class);
 
         TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
+
+
     }
 
     @Override

@@ -16,19 +16,14 @@ import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
 import com.djdarkside.box2dapp.utils.Constants;
 import com.djdarkside.box2dapp.utils.WorldUtils;
+import com.sun.media.jfxmedia.events.PlayerStateEvent;
 
 
 /**
  * Created by djdarkside on 10/22/2016.
  */
 public class Player {
-/*
-    public enum playerState {
-        FALLING, JUMPING, STANDING, RUNNING, DEAD
-    }
-    public playerState currentState;
-    public playerState previousState;
-*/
+
     private final Application app;
     public float x, y;
     public TextureRegion region;
@@ -36,6 +31,12 @@ public class Player {
     public World world;
     public Body playerBody;
     private Box2DDebugRenderer b2dr;
+
+    public enum playerState {
+        FALLING, JUMPING, STANDING, WALKING, DEAD
+    }
+    public playerState currentState;
+    public playerState previousState;
 
     public Player(final Application app, World world) {
         this.app = app;
@@ -55,12 +56,13 @@ public class Player {
     }
 
     private Body initBody() {
-        playerBody = WorldUtils.createBox(world, 140, 140, 16, 32, false, true);
+        playerBody = WorldUtils.createBox(world, 140, 140, 16, 32, false, true, 2.0f);
         return playerBody;
     }
 
     public void update(float delta) {
         inputUpdate(delta);
+        System.out.println(currentState);
     }
 
     public void render(float delta) {
@@ -69,18 +71,24 @@ public class Player {
 
     public void inputUpdate(float delta) {
         int horizontalForce = 0;
+        currentState = playerState.STANDING;
+        //if (horizontalForce == 0) currentState = playerState.STANDING;
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 1;
+            currentState = playerState.WALKING;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             horizontalForce += 1;
+            currentState = playerState.WALKING;
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != playerState.JUMPING) {
             playerBody.applyForceToCenter(0, 300, false);
+            currentState = playerState.JUMPING;
         }
+
         playerBody.setLinearVelocity(horizontalForce * 5, playerBody.getLinearVelocity().y);
     }
-
 
     public Vector2 getPosition() {
         return position;
@@ -88,6 +96,10 @@ public class Player {
 
     public Body getPlayerBody() {
         return playerBody;
+    }
+
+    public playerState getState() {
+        return currentState;
     }
 
 }
