@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
+import com.djdarkside.box2dapp.screens.TestStage;
 import com.djdarkside.box2dapp.utils.Constants;
 import com.djdarkside.box2dapp.utils.WorldUtils;
 import com.sun.media.jfxmedia.events.PlayerStateEvent;
@@ -72,18 +73,20 @@ public class Player {
     public void inputUpdate(float delta) {
         int horizontalForce = 0;
         currentState = playerState.STANDING;
-        //if (horizontalForce == 0) currentState = playerState.STANDING;
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 1;
             currentState = playerState.WALKING;
+            TestStage.xPos += .1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             horizontalForce += 1;
             currentState = playerState.WALKING;
+            TestStage.xPos -= .1;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != playerState.JUMPING) {
-            playerBody.applyForceToCenter(0, 300, false);
+            playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
+            playerBody.applyForceToCenter(0, 300, true);
             currentState = playerState.JUMPING;
         }
 
@@ -100,6 +103,10 @@ public class Player {
 
     public playerState getState() {
         return currentState;
+    }
+
+    public void Jump() {
+
     }
 
 }
