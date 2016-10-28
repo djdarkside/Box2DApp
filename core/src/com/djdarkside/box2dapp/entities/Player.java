@@ -41,7 +41,8 @@ public class Player {
     public TextureRegion currentFrame;
     public float stateTime;
     public Texture walkSheet;
-    public SpriteBatch spriteBatch;
+
+
 
     private Array<Body> tempBodies = new Array<Body>();
 
@@ -73,17 +74,15 @@ public class Player {
             }
         }
         walkAnimation = new Animation(0.025f, walkFrames);      // #11
-        spriteBatch = app.batch;               // #12
         stateTime = 0f;
     }
 
     public void renderAnimation(float delta) {
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        delta = Gdx.graphics.getDeltaTime();
         stateTime += delta;
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         app.batch.begin();
-        app.batch.draw(currentFrame, 140, 500);
+        app.batch.draw(currentFrame, playerBody.getPosition().x - currentFrame.getRegionWidth() / 2,
+                playerBody.getPosition().y - currentFrame.getRegionWidth() / 2);
         app.batch.end();
     }
 
@@ -126,12 +125,10 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             horizontalForce -= 1;
             currentState = playerState.WALKING;
-            //TestStage.xPos += .1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             horizontalForce += 1;
             currentState = playerState.WALKING;
-            //TestStage.xPos -= .1;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != playerState.JUMPING) {
             playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
@@ -144,7 +141,6 @@ public class Player {
     public void dispose() {
         world.dispose();
     }
-
     public Sprite getPlayerSprite() {
         return playerSprite;
     }

@@ -96,8 +96,9 @@ public class TestStage implements Screen {
         tmr.render();
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
-        player.render(delta);
         player.renderAnimation(delta);
+        player.render(delta);
+
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
