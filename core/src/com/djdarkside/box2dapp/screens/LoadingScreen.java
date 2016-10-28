@@ -27,6 +27,7 @@ public class LoadingScreen implements Screen {
     public static final String PLAYER = "images/cat.png";
     public static final String BACKGROUND = "maps/bg_volcano.png";
     public static final String MAP = "maps/test_map_2.tmx";
+    public static final String animPlayer = "images/sprite-animation4.png";
 
     public static final String UISKINATLAS = "ui/uiskin.atlas";
     public static final String UISKINJSON = "ui/uiskin.json";
@@ -46,6 +47,7 @@ public class LoadingScreen implements Screen {
         app.manager.load(BACKGROUND, Texture.class);
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);
+        app.manager.load(animPlayer, Texture.class);
 
         app.manager.load(UISKIN, Texture.class);
         app.manager.load(UISKINATLAS, TextureAtlas.class);

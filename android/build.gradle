@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "23.0.3"
-    compileSdkVersion 23
+    buildToolsVersion "24.0.3"
+    compileSdkVersion 24
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -15,9 +15,9 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.djdarkside.box2dapp"
+        applicationId "com.djdarkside.workfun"
         minSdkVersion 8
-        targetSdkVersion 23
+        targetSdkVersion 24
     }
 }
 
