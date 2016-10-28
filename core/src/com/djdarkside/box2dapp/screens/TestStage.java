@@ -32,7 +32,7 @@ import com.djdarkside.box2dapp.utils.WorldUtils;
 /**
  * Created by djdarkside on 10/25/2016.
  */
-public class TestStage implements Screen, ControllerListener {
+public class TestStage implements Screen {
 
     private final Application app;
     private Player player;
@@ -48,7 +48,7 @@ public class TestStage implements Screen, ControllerListener {
     public int levelWidth = 0;
     public int levelHeight = 0;
 
-    public static float xPos = 0;
+    public static float xPos;
 
     public TestStage(final Application app) {
         this.app = app;
@@ -89,15 +89,15 @@ public class TestStage implements Screen, ControllerListener {
         stage.draw();
 
         app.batch.begin();
-        app.batch.draw(bkgReg, xPos, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
-        app.batch.draw(bkgReg, xPos, 0, bkgReg.getRegionWidth() + bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
+        app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
+        app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth() + bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
         app.batch.end();
 
         tmr.render();
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player.render(delta);
-        //app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
     }
 
@@ -124,7 +124,6 @@ public class TestStage implements Screen, ControllerListener {
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             app.camera.zoom -= .1;
         }
-
     }
 
     @Override
@@ -153,50 +152,6 @@ public class TestStage implements Screen, ControllerListener {
         b2dr.dispose();
         stage.dispose();
         hud.dispose();
-    }
-
-    @Override
-    public void connected(Controller controller) {
-
-    }
-
-    @Override
-    public void disconnected(Controller controller) {
-
-    }
-
-    @Override
-    public boolean buttonDown(Controller controller, int buttonCode) {
-        return false;
-    }
-
-    @Override
-    public boolean buttonUp(Controller controller, int buttonCode) {
-        return false;
-    }
-
-    @Override
-    public boolean axisMoved(Controller controller, int axisCode, float value) {
-        return false;
-    }
-
-    @Override
-    public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-        return false;
-    }
-
-    @Override
-    public boolean xSliderMoved(Controller controller, int sliderCode, boolean value) {
-        return false;
-    }
-
-    @Override
-    public boolean ySliderMoved(Controller controller, int sliderCode, boolean value) {
-        return false;
-    }
-
-    @Override
-    public boolean accelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
-        return false;
+        player.dispose();
     }
 }
