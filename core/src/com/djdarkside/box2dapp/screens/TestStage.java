@@ -117,7 +117,7 @@ public class TestStage implements Screen {
         tmr.setView(app.camera);
 
         //Scales the BAckground and Sprites
-        app.batch.setProjectionMatrix(app.camera.combined);
+        //app.batch.setProjectionMatrix(app.camera.combined);
 
         hud.update(delta);
         player.update(delta);
