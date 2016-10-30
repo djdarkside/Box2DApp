@@ -20,6 +20,7 @@ public class TiledObjectUtil {
         ppt = pixels;
         MapObjects objects = map.getLayers().get("collision-layer").getObjects();
 
+
         Array<Body> bodies = new Array<Body>();
 
         for(MapObject object : objects) {

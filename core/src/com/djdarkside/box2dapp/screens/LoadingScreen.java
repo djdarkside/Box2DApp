@@ -32,6 +32,8 @@ public class LoadingScreen implements Screen {
     public static final String UISKINATLAS = "ui/uiskin.atlas";
     public static final String UISKINJSON = "ui/uiskin.json";
     public static final String UISKIN= "ui/uiskin.png";
+    public static final String KEY = "images/keyYellow.png";
+    public static final String BACKGROUND2 = "maps/background.png";
 
     private float progress;
     private ShapeRenderer renderer;
@@ -42,12 +44,13 @@ public class LoadingScreen implements Screen {
     }
 
     private void queueAssets() {
-        System.out.println("QUEUE");
         app.manager.load(PLAYER, Texture.class);
         app.manager.load(BACKGROUND, Texture.class);
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);
         app.manager.load(animPlayer, Texture.class);
+        app.manager.load(KEY, Texture.class);
+        app.manager.load(BACKGROUND2, Texture.class);
 
         app.manager.load(UISKIN, Texture.class);
         app.manager.load(UISKINATLAS, TextureAtlas.class);

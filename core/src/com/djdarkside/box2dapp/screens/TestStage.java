@@ -3,31 +3,19 @@ package com.djdarkside.box2dapp.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.ControllerListener;
-import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.entities.Player;
-import com.djdarkside.box2dapp.utils.CameraStyles;
-import com.djdarkside.box2dapp.utils.Constants;
-import com.djdarkside.box2dapp.utils.TiledObjectUtil;
-import com.djdarkside.box2dapp.utils.WorldUtils;
+import com.djdarkside.box2dapp.utils.*;
 
 /**
  * Created by djdarkside on 10/25/2016.
@@ -39,9 +27,10 @@ public class TestStage implements Screen {
     private World world;
 
     private Box2DDebugRenderer b2dr;
-    private TextureRegion bkgReg;
+    private Sprite key;
     private Hud hud;
     private Stage stage;
+    private Background background;
 
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
@@ -60,9 +49,9 @@ public class TestStage implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
+        key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
-        bkgReg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
-        bkgReg.setRegion(0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
+        background = new Background(app, 1);
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
@@ -75,7 +64,7 @@ public class TestStage implements Screen {
         MapProperties props = map.getProperties();
         levelWidth = props.get("width", Integer.class);
         levelHeight = props.get("height", Integer.class);
-        //TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
+
         TiledObjectUtil.buildShapes(map, Constants.PPM, world);
     }
 
@@ -87,22 +76,14 @@ public class TestStage implements Screen {
 
         update(delta);
         stage.draw();
-
-        app.batch.begin();
-        app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
-        app.batch.draw(bkgReg, 0, 0, bkgReg.getRegionWidth() + bkgReg.getRegionWidth(), bkgReg.getRegionHeight());
-        app.batch.end();
+        background.render(delta);
 
         tmr.render();
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        player.render(delta, false);
 
-        player.renderAnimation(delta);
-        player.render(delta);
-
-
-        app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-
+        app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
     public void update(float delta) {
@@ -115,19 +96,13 @@ public class TestStage implements Screen {
         CameraStyles.camBoundry(app.camera, startX, startY, levelWidth * Constants.PPM - startX * 2, levelHeight * Constants.PPM - startY * 2);
 
         tmr.setView(app.camera);
-
-        //Scales the BAckground and Sprites
-        //app.batch.setProjectionMatrix(app.camera.combined);
-
-        hud.update(delta);
         player.update(delta);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            app.camera.zoom += .1;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
-            app.camera.zoom -= .1;
-        }
+        //Scales the Background and Sprites and
+        app.batch.setProjectionMatrix(app.camera.combined);
+
+        hud.update(delta);
+
     }
 
     @Override

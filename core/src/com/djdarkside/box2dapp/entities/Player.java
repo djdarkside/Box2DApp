@@ -29,11 +29,16 @@ import com.sun.media.jfxmedia.events.PlayerStateEvent;
  */
 public class Player {
 
+    public enum playerState {FALLING, JUMPING, STANDING, WALKING, DEAD}
+    public playerState currentState;
+
     private final Application app;
     private World world;
     private Body playerBody;
     private Sprite playerSprite;
+    private Array<Body> tempBodies = new Array<Body>();
 
+    //Animation Stuff
     private static final int FRAME_COLS = 6;
     private static final int FRAME_ROWS = 5;
     public Animation walkAnimation;
@@ -42,22 +47,10 @@ public class Player {
     public float stateTime;
     public Texture walkSheet;
 
-
-
-    private Array<Body> tempBodies = new Array<Body>();
-
-    public enum playerState {
-        FALLING, JUMPING, STANDING, WALKING, DEAD
-    }
-
-    public playerState currentState;
-    public playerState previousState;
-
     public Player(final Application app, World world) {
         this.app = app;
         this.world = world;
         playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-
         initBody();
         initSprite();
         createAnimation();
@@ -73,7 +66,7 @@ public class Player {
                 walkFrames[index++] = tmp[i][j];
             }
         }
-        walkAnimation = new Animation(0.025f, walkFrames);      // #11
+        walkAnimation = new Animation(0.025f, walkFrames);// #11
         stateTime = 0f;
     }
 
@@ -81,37 +74,35 @@ public class Player {
         stateTime += delta;
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         app.batch.begin();
-        app.batch.draw(currentFrame, playerBody.getPosition().x - currentFrame.getRegionWidth() / 2,
-                playerBody.getPosition().y - currentFrame.getRegionWidth() / 2);
+        app.batch.draw(currentFrame, (playerBody.getPosition().x * Constants.PPM) - (currentFrame.getRegionWidth() / 2),
+                (playerBody.getPosition().y * Constants.PPM) - (currentFrame.getRegionHeight() / 2));
         app.batch.end();
     }
 
-    private Sprite initSprite() {
+    private void initSprite() {
         playerSprite.setSize(playerSprite.getWidth() / Constants.PPM, playerSprite.getHeight() / Constants.PPM);
+        //playerSprite.setSize(playerSprite.getWidth(), playerSprite.getHeight());
         playerSprite.setOrigin(playerSprite.getWidth() / 2, playerSprite.getHeight() / 2);
-        return playerSprite;
     }
-
-    private Body initBody() {
-        playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, false, 2.0f);
+    private void initBody() {
+        playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, false, 1.0f);
         playerBody.setUserData(playerSprite);
-        return playerBody;
     }
-
     public void update(float delta) {
         inputUpdate(delta);
-        System.out.println(currentState);
+        //System.out.println(currentState);
     }
-
-    public void render(float delta) {
+    public void render(float delta, Boolean isAnimated) {
+        if (isAnimated) renderAnimation(delta);
         app.batch.setProjectionMatrix(app.camera.combined);
         app.batch.begin();
         world.getBodies(tempBodies);
-        for(Body playerBody : tempBodies) {
-            if (playerBody.getUserData() instanceof Sprite) {
-                Sprite sprite = (Sprite) playerBody.getUserData();
-                sprite.setPosition(playerBody.getPosition().x - sprite.getWidth() / 2, playerBody.getPosition().y - sprite.getHeight() / 2);
-                sprite.setRotation(playerBody.getAngle() * MathUtils.radiansToDegrees);
+        for(Body body : tempBodies) {
+            if (body.getUserData() != null && body.getUserData() instanceof Sprite) {
+                Sprite sprite = (Sprite) body.getUserData();
+                sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
+                //sprite.setPosition((body.getPosition().x - sprite.getWidth() / 2) * Constants.PPM, (body.getPosition().y - sprite.getHeight() / 2) * Constants.PPM);
+                sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
                 sprite.draw(app.batch);
             }
         }
@@ -136,6 +127,13 @@ public class Player {
             currentState = playerState.JUMPING;
         }
         playerBody.setLinearVelocity(horizontalForce * 5, playerBody.getLinearVelocity().y);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            app.camera.zoom += .1;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+            app.camera.zoom -= .1;
+        }
     }
 
     public void dispose() {
