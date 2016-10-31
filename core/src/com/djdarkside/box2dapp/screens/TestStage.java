@@ -31,6 +31,7 @@ public class TestStage implements Screen {
     private Hud hud;
     private Stage stage;
     private Background background;
+    private BackgroundStage backgroundStage;
 
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
@@ -51,7 +52,7 @@ public class TestStage implements Screen {
         stage.clear();
         key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
-        background = new Background(app, 1);
+        backgroundStage = new BackgroundStage(app, 1);
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
@@ -76,13 +77,20 @@ public class TestStage implements Screen {
 
         update(delta);
         stage.draw();
-        background.render(delta);
+
+        backgroundStage.stage.draw();
+        //backgroundStage.render(delta);
+
+        app.batch.begin();
+        app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
+        app.batch.end();
 
         tmr.render();
         b2dr.render(world, app.camera.combined.scl(Constants.PPM));
         player.render(delta, false);
 
         hud.stage.draw();
+
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
@@ -102,6 +110,7 @@ public class TestStage implements Screen {
         app.batch.setProjectionMatrix(app.camera.combined);
 
         hud.update(delta);
+        backgroundStage.update(delta);
 
     }
 
@@ -132,5 +141,6 @@ public class TestStage implements Screen {
         stage.dispose();
         hud.dispose();
         player.dispose();
+        background.dispose();
     }
 }

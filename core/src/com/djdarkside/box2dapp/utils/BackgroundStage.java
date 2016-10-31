@@ -4,28 +4,28 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
 
 /**
- * Created by design on 10/26/2016.
+ * Created by djdarkside on 10/30/2016.
  */
-public class Background implements Disposable {
+public class BackgroundStage implements Disposable{
 
     private final Application app;
-    private TextureRegion region;
     private SpriteBatch batch;
-    private int levelNum;
     private OrthographicCamera bkgCam;
     public Stage stage;
+    public Image image;
+    public TextureRegion regionTex;
 
-    public Background(final Application app, int levelNum) {
+    public BackgroundStage(final Application app, int levelNum) {
         this.app = app;
-        this.levelNum = levelNum;
         bkgCam = new OrthographicCamera();
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT, bkgCam));
         initBackground(levelNum);
@@ -33,31 +33,30 @@ public class Background implements Disposable {
 
     public void initBackground(int levelNum) {
         if (levelNum == 1) {
-            region = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
-            region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
-            bkgCam.setToOrtho(false, region.getRegionWidth(), region.getRegionHeight());
+            regionTex = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
+            image = new Image(regionTex);
+            image.setSize(image.getWidth(), image.getHeight());
+            stage.addActor(image);
         } else if (levelNum == 2) {
-            region = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND2, Texture.class));
-            region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+            regionTex = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND2, Texture.class));
+            image = new Image(regionTex);
+            image.setSize(image.getWidth() * 2, image.getHeight() * 2);
+            stage.addActor(image);
         }
     }
 
     public void update(float delta) {
+        stage.act(delta);
         bkgCam.update();
     }
 
     public void render(float delta) {
-        //app.batch.setProjectionMatrix(bkgCam.combined);
-        stage.act(delta);
-        app.batch.begin();
-        app.batch.draw(region, 0, 0, region.getRegionWidth(), region.getRegionHeight());
-        app.batch.draw(region, 0, 0, region.getRegionWidth() + region.getRegionWidth(), region.getRegionHeight());
-        app.batch.end();
-
+        //stage.act(delta);
     }
 
     public void dispose() {
         stage.dispose();
     }
-
 }
+
+
