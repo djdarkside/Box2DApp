@@ -57,7 +57,7 @@ public class Player {
     }
 
     public void createAnimation() {
-        walkSheet = app.manager.get(LoadingScreen.animPlayer, Texture.class);
+        walkSheet = app.manager.get(LoadingScreen.PLAYERSHEET, Texture.class);
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);              // #10
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
@@ -81,7 +81,6 @@ public class Player {
 
     private void initSprite() {
         playerSprite.setSize(playerSprite.getWidth() / Constants.PPM, playerSprite.getHeight() / Constants.PPM);
-        //playerSprite.setSize(playerSprite.getWidth(), playerSprite.getHeight());
         playerSprite.setOrigin(playerSprite.getWidth() / 2, playerSprite.getHeight() / 2);
     }
     private void initBody() {
@@ -94,7 +93,7 @@ public class Player {
     }
     public void render(float delta, Boolean isAnimated) {
         if (isAnimated) renderAnimation(delta);
-        app.batch.setProjectionMatrix(app.camera.combined);
+        app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
         app.batch.begin();
         world.getBodies(tempBodies);
         for(Body body : tempBodies) {

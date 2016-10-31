@@ -24,7 +24,9 @@ public class LoadingScreen implements Screen {
 
     private final Application app;
 
-    public static final String PLAYER = "images/cat.png";
+    //public static final String PLAYER = "images/cat.png";
+    public static final String PLAYER = "images/you1.png";
+    public static final String PLAYERSHEET = "images/you.png";
     public static final String BACKGROUND = "maps/bg_volcano.png";
     public static final String MAP = "maps/test_map_2.tmx";
     public static final String animPlayer = "images/sprite-animation4.png";
@@ -45,6 +47,7 @@ public class LoadingScreen implements Screen {
 
     private void queueAssets() {
         app.manager.load(PLAYER, Texture.class);
+        app.manager.load(PLAYERSHEET, Texture.class);
         app.manager.load(BACKGROUND, Texture.class);
         app.manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         app.manager.load(MAP, TiledMap.class);

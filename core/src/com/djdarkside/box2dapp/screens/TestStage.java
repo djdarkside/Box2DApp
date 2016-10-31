@@ -86,7 +86,7 @@ public class TestStage implements Screen {
         app.batch.end();
 
         tmr.render();
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
         player.render(delta, false);
 
         hud.stage.draw();

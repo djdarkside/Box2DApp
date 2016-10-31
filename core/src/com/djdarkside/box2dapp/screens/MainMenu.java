@@ -55,6 +55,10 @@ public class MainMenu implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        app.batch.begin();
+        app.font.draw(app.batch, "Game...", Constants.V_WIDTH / 2 - 24, 564);
+        app.batch.end();
+
         update(delta);
 
         stage.draw();
