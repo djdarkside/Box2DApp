@@ -26,7 +26,7 @@ public class MainMenu implements Screen {
     private Stage stage;
     private Skin skin;
     private ShapeRenderer renderer;
-    private TextButton buttonPlay, buttonExit;
+    private TextButton buttonPlay, buttonExit, buttonSettings;
 
     public MainMenu(final Application app) {
         this.app = app;
@@ -76,8 +76,19 @@ public class MainMenu implements Screen {
             }
         });
 
+        buttonSettings = new TextButton("Settings", skin, "default");
+        buttonSettings.setPosition(Constants.V_WIDTH / 2 - 140, 190);
+        buttonSettings.setSize(280, 60);
+        buttonSettings.addAction(sequence(alpha(0), parallel(fadeIn(.5f), moveBy(0, -20, .5f, Interpolation.pow5Out))));
+        buttonSettings.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //app.setScreen(app.tStage);
+            }
+        });
+
         buttonExit = new TextButton("Exit", skin, "default");
-        buttonExit.setPosition(Constants.V_WIDTH / 2 - 140, 190);
+        buttonExit.setPosition(Constants.V_WIDTH / 2 - 140, 120);
         buttonExit.setSize(280, 60);
         buttonExit.addAction(sequence(alpha(0), parallel(fadeIn(.5f), moveBy(0, -20, .5f, Interpolation.pow5Out))));
         buttonExit.addListener(new ClickListener() {
@@ -88,6 +99,7 @@ public class MainMenu implements Screen {
         });
 
         stage.addActor(buttonPlay);
+        stage.addActor(buttonSettings);
         stage.addActor(buttonExit);
     }
 

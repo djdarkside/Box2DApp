@@ -39,8 +39,8 @@ public class Player {
     private Array<Body> tempBodies = new Array<Body>();
 
     //Animation Stuff
-    private static final int FRAME_COLS = 6;
-    private static final int FRAME_ROWS = 5;
+    private static final int FRAME_COLS = 3;
+    private static final int FRAME_ROWS = 4;
     public Animation walkAnimation;
     public TextureRegion[] walkFrames;
     public TextureRegion currentFrame;
@@ -55,10 +55,24 @@ public class Player {
         initSprite();
         createAnimation();
     }
-
+    /*
     public void createAnimation() {
         walkSheet = app.manager.get(LoadingScreen.PLAYERSHEET, Texture.class);
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);              // #10
+        walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++) {
+            for (int j = 0; j < FRAME_COLS; j++) {
+                walkFrames[index++] = tmp[i][j];
+            }
+        }
+        walkAnimation = new Animation(0.025f, walkFrames);// #11
+        stateTime = 0f;
+    }
+    */
+    public void createAnimation() {
+        walkSheet = app.manager.get(LoadingScreen.PLAYERSHEET, Texture.class);
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);              // #10
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
         for (int i = 0; i < FRAME_ROWS; i++) {
@@ -84,7 +98,7 @@ public class Player {
         playerSprite.setOrigin(playerSprite.getWidth() / 2, playerSprite.getHeight() / 2);
     }
     private void initBody() {
-        playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, false, 1.0f);
+        playerBody = WorldUtils.createBox(world, 140, 140, 32, 32, false, true, 1.0f);
         playerBody.setUserData(playerSprite);
     }
     public void update(float delta) {
@@ -93,19 +107,21 @@ public class Player {
     }
     public void render(float delta, Boolean isAnimated) {
         if (isAnimated) renderAnimation(delta);
-        app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
-        app.batch.begin();
-        world.getBodies(tempBodies);
-        for(Body body : tempBodies) {
-            if (body.getUserData() != null && body.getUserData() instanceof Sprite) {
-                Sprite sprite = (Sprite) body.getUserData();
-                sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
-                //sprite.setPosition((body.getPosition().x - sprite.getWidth() / 2) * Constants.PPM, (body.getPosition().y - sprite.getHeight() / 2) * Constants.PPM);
-                sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
-                sprite.draw(app.batch);
+        else {
+            app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
+            app.batch.begin();
+            world.getBodies(tempBodies);
+            for(Body body : tempBodies) {
+                if (body.getUserData() != null && body.getUserData() instanceof Sprite) {
+                    Sprite sprite = (Sprite) body.getUserData();
+                    sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
+                    //sprite.setPosition((body.getPosition().x - sprite.getWidth() / 2) * Constants.PPM, (body.getPosition().y - sprite.getHeight() / 2) * Constants.PPM);
+                    sprite.setRotation(body.getAngle() * MathUtils.radiansToDegrees);
+                    sprite.draw(app.batch);
+                }
             }
+            app.batch.end();
         }
-        app.batch.end();
     }
 
     public void inputUpdate(float delta) {
