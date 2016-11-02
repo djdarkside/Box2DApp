@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
+import com.djdarkside.box2dapp.entities.Key;
 import com.djdarkside.box2dapp.entities.Player;
 import com.djdarkside.box2dapp.utils.*;
 
@@ -24,6 +25,7 @@ public class TestStage implements Screen {
 
     private final Application app;
     private Player player;
+    private Key keys;
     private World world;
 
     private Box2DDebugRenderer b2dr;
@@ -50,7 +52,7 @@ public class TestStage implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         stage.clear();
-        key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
+        //key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
         backgroundStage = new BackgroundStage(app, 1);
 
@@ -60,13 +62,15 @@ public class TestStage implements Screen {
         player = new Player(app, world);
 
         map = app.manager.get(LoadingScreen.MAP);
+        keys = new Key(app, world, "Yellow", map);
         tmr = new OrthogonalTiledMapRenderer(map);
 
         MapProperties props = map.getProperties();
         levelWidth = props.get("width", Integer.class);
         levelHeight = props.get("height", Integer.class);
 
-        TiledObjectUtil.buildShapes(map, Constants.PPM, world);
+        TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
+        TiledObjectUtil.buildShapes(map, Constants.PPM, world, "keys");
     }
 
 
@@ -79,16 +83,17 @@ public class TestStage implements Screen {
         stage.draw();
 
         backgroundStage.stage.draw();
-        //backgroundStage.render(delta);
 
-        app.batch.begin();
-        app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
-        app.batch.end();
+
+        //app.batch.begin();
+        //app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
+        //app.batch.end();
 
         tmr.render();
         //b2dr.render(world, app.camera.combined);
         //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
         player.render(delta, false);
+        keys.render(delta, keys.keyBody);
 
         hud.stage.draw();
 

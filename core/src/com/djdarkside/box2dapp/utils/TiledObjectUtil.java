@@ -16,10 +16,9 @@ public class TiledObjectUtil {
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
     private static float ppt = 0;
 
-    public static Array<Body> buildShapes(Map map, float pixels, World world) {
+    public static Array<Body> buildShapes(Map map, float pixels, World world, String mapLayer) {
         ppt = pixels;
-        MapObjects objects = map.getLayers().get("collision-layer").getObjects();
-
+        MapObjects objects = map.getLayers().get(mapLayer).getObjects();
 
         Array<Body> bodies = new Array<Body>();
 
@@ -90,7 +89,7 @@ public class TiledObjectUtil {
         return circleShape;
     }
 
-    private static PolygonShape getPolygon(PolygonMapObject polygonObject) {
+    public static PolygonShape getPolygon(PolygonMapObject polygonObject) {
         PolygonShape polygon = new PolygonShape();
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
 
