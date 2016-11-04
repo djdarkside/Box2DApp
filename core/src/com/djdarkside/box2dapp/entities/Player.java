@@ -27,7 +27,7 @@ import com.sun.media.jfxmedia.events.PlayerStateEvent;
 /**
  * Created by djdarkside on 10/22/2016.
  */
-public class Player {
+public class Player extends Entity {
 
     public enum playerState {FALLING, JUMPING, STANDING, WALKING, DEAD}
     public playerState currentState;

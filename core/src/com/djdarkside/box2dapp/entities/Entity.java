@@ -18,21 +18,19 @@ public abstract class Entity {
 
     protected final Application app;
     protected Sprite sprite;
-    protected Texture tex;
-    protected TextureRegion region;
     protected World world;
-    private Body body;
+    protected Body body;
+    protected enum EntityState{FALLING, JUMPING, STANDING, WALKING, DEAD}
 
-    public Entity(final Application app) {
+    protected Entity(final Application app, World world) {
         this.app = app;
-        tex = app.manager.get(LoadingScreen.PLAYER);
-        sprite = new Sprite(tex);
+        this.world = world;
     }
 
-    abstract void render(float delta);
+    protected void render(float delta) {}
 
-    abstract void update(float delta);
+    protected void update(float delta) {}
 
-    abstract void dispose();
+    protected void dispose() {}
 
 }
