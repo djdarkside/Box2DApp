@@ -25,11 +25,11 @@ public class TestStage implements Screen {
 
     private final Application app;
     private Player player;
-    private Key keys;
+    //private Key keys;
     private World world;
 
     private Box2DDebugRenderer b2dr;
-    private Sprite key;
+    //private Sprite key;
     private Hud hud;
     private Stage stage;
     private Background background;
@@ -62,7 +62,7 @@ public class TestStage implements Screen {
         player = new Player(app, world);
 
         map = app.manager.get(LoadingScreen.MAP);
-        keys = new Key(app, world, "Yellow", map);
+        //keys = new Key(app, world, "Yellow", map);
         tmr = new OrthogonalTiledMapRenderer(map);
 
         MapProperties props = map.getProperties();
@@ -84,19 +84,14 @@ public class TestStage implements Screen {
 
         backgroundStage.stage.draw();
 
-
         //app.batch.begin();
         //app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
         //app.batch.end();
-
         tmr.render();
-        //b2dr.render(world, app.camera.combined);
         //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
-        player.render(delta, false);
-        keys.render(delta, keys.keyBody);
-
+        player.render(delta, true);
+        //keys.render(delta, keys.keyBody);
         hud.stage.draw();
-
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
     }
 
@@ -112,12 +107,8 @@ public class TestStage implements Screen {
         tmr.setView(app.camera);
         player.update(delta);
 
-        //Scales the Background and Sprites and
-        app.batch.setProjectionMatrix(app.camera.combined);
-
         hud.update(delta);
         backgroundStage.update(delta);
-
     }
 
     @Override

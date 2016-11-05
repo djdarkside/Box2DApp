@@ -14,7 +14,7 @@ import com.djdarkside.box2dapp.screens.LoadingScreen;
 /**
  * Created by djdarkside on 10/25/2016.
  */
-public abstract class Entity {
+public class Entity {
 
     protected final Application app;
     protected Sprite sprite;
@@ -22,7 +22,7 @@ public abstract class Entity {
     protected Body body;
     protected enum EntityState{FALLING, JUMPING, STANDING, WALKING, DEAD}
 
-    protected Entity(final Application app, World world) {
+    public Entity(final Application app, World world) {
         this.app = app;
         this.world = world;
     }
