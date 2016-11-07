@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="2">
+ <tileset firstgid="1" name="dawn_of_the_gods" tilewidth="32" tileheight="32" tilecount="1927" columns="41">
+  <image source="dawn_of_the_gods.png" trans="ff00ff" width="1312" height="1504"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="80" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztzDsKACEMBcDgcf3cv1UrZWFBLKxm4BESkkQAAAAAAADAklNEGak/tWz9d3aa27tX/27+zt020gGwYyIb
+  </data>
+ </layer>
+ <objectgroup name="collision-layer">
+  <object id="1" x="2" y="672">
+   <polyline points="0,0 -2,-672 2558,-672 2558,0 -34,0"/>
+  </object>
+ </objectgroup>
+</map>

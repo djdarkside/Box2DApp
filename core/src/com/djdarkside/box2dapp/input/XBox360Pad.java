@@ -27,16 +27,37 @@ public class XBox360Pad {
        Xbox wireless receiver for windows (Controller)
      */
     public static final String ID = "XBOX 360 For Windows (Controller)";
+    public static final int BUTTON_A = 0;
+    public static final int BUTTON_B = 1;
     public static final int BUTTON_X = 2;
+    public static final int BUTTON_Y = 3;
+    public static final int BUTTON_LB = 4;
+    public static final int BUTTON_RB = 5;
+    public static final int BUTTON_BACK = 6;
+    public static final int BUTTON_START = 7;
+    public static final int BUTTON_LS = 8; //Left Stick pressed down
+    public static final int BUTTON_RS = 9; //Right Stick pressed down
+
+    public static final int POV = 0;
+
+    public static final int AXIS_LY = 0; //-1 is up | +1 is down
+    public static final int AXIS_LX = 1; //-1 is left | +1 is right
+    public static final int AXIS_RY = 2; //-1 is up | +1 is down
+    public static final int AXIS_RX = 3; //-1 is left | +1 is right
+    public static final int AXIS_TRIGGER = 4; //LT and RT are on the same Axis! LT > 0 | RT < 0
+
+    /*public static final int BUTTON_X = 2;
     public static final int BUTTON_Y = 3;
     public static final int BUTTON_A = 0;
     public static final int BUTTON_B = 1;
     public static final int BUTTON_BACK = 6;
     public static final int BUTTON_START = 7;
+    */
     public static final PovDirection BUTTON_DPAD_UP = PovDirection.north;
     public static final PovDirection BUTTON_DPAD_DOWN = PovDirection.south;
     public static final PovDirection BUTTON_DPAD_RIGHT = PovDirection.east;
     public static final PovDirection BUTTON_DPAD_LEFT = PovDirection.west;
+    /*
     public static final int BUTTON_LB = 4;
     public static final int BUTTON_L3 = 8;
     public static final int BUTTON_RB = 5;
@@ -47,4 +68,5 @@ public class XBox360Pad {
     public static final int AXIS_RIGHT_X = 3; //-1 is left | +1 is right
     public static final int AXIS_RIGHT_Y = 2; //-1 is up | +1 is down
     public static final int AXIS_RIGHT_TRIGGER = 4; //value 0 to -1f
+    */
 }

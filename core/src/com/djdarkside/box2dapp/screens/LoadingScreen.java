@@ -28,8 +28,12 @@ public class LoadingScreen implements Screen {
     public static final String PLAYER = "images/you1.png";
     public static final String PLAYERSHEET = "images/you.png";
     public static final String BACKGROUND = "maps/bg_volcano.png";
-    public static final String MAP = "maps/test_map_2.tmx";
+    public static final String MAP = "maps/test_map_3.tmx";
     public static final String animPlayer = "images/sprite-animation4.png";
+
+    public static final String BKG_FAR = "maps/1/set4_background.png";
+    public static final String BKG_MID = "maps/1/set4_hills.png";
+    public static final String BKG_FOR = "maps/1/set4_tiles.png";
 
     public static final String UISKINATLAS = "ui/uiskin.atlas";
     public static final String UISKINJSON = "ui/uiskin.json";
@@ -54,6 +58,10 @@ public class LoadingScreen implements Screen {
         app.manager.load(animPlayer, Texture.class);
         app.manager.load(KEY, Texture.class);
         app.manager.load(BACKGROUND2, Texture.class);
+
+        app.manager.load(BKG_FAR, Texture.class);
+        app.manager.load(BKG_FOR, Texture.class);
+        app.manager.load(BKG_MID, Texture.class);
 
         app.manager.load(UISKIN, Texture.class);
         app.manager.load(UISKINATLAS, TextureAtlas.class);

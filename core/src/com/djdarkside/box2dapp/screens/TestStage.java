@@ -32,8 +32,9 @@ public class TestStage implements Screen {
     //private Sprite key;
     private Hud hud;
     private Stage stage;
-    private Background background;
-    private BackgroundStage backgroundStage;
+    //private Background background;
+    //private BackgroundStage backgroundStage;
+    private ParallaxTest test;
 
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
@@ -54,7 +55,8 @@ public class TestStage implements Screen {
         stage.clear();
         //key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
-        backgroundStage = new BackgroundStage(app, 1);
+        //backgroundStage = new BackgroundStage(app, 3);
+        test = new ParallaxTest(app);
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
@@ -70,7 +72,7 @@ public class TestStage implements Screen {
         levelHeight = props.get("height", Integer.class);
 
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
-        TiledObjectUtil.buildShapes(map, Constants.PPM, world, "keys");
+        //TiledObjectUtil.buildShapes(map, Constants.PPM, world, "keys");
     }
 
 
@@ -82,17 +84,40 @@ public class TestStage implements Screen {
         update(delta);
         stage.draw();
 
-        backgroundStage.stage.draw();
+        //backgroundStage.stage.draw();
+        test.render(delta);
 
         //app.batch.begin();
         //app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
         //app.batch.end();
+
         tmr.render();
         //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
         player.render(delta, true);
+
         //keys.render(delta, keys.keyBody);
+
         hud.stage.draw();
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
+        app.batch.begin();
+        app.font.draw(app.batch, "Cam X:" + app.camera.position.x, 24, 564);
+        app.font.draw(app.batch, "Cam Y:" + app.camera.position.y, 24, 534);
+
+        //app.font.draw(app.batch, "Bkg Cam X:" + backgroundStage.bkgCam.position.x, 24, 504);
+        //app.font.draw(app.batch, "Bkg Cam Y:" + backgroundStage.bkgCam.position.x, 24, 474);
+
+        app.font.draw(app.batch, "Player State:" + player.currentState, 24, 434);
+
+        app.font.draw(app.batch, "Box Pos X:" + player.getPlayerBody().getPosition().x, 24, 334);
+        app.font.draw(app.batch, "Box Pos Y:" + player.getPlayerBody().getPosition().y, 24, 304);
+
+        app.font.draw(app.batch, "Pos X:" + player.getPlayerBody().getPosition().x * Constants.PPM, 24, 264);
+        app.font.draw(app.batch, "Pos Y:" + player.getPlayerBody().getPosition().y * Constants.PPM, 24, 234);
+
+        app.font.draw(app.batch, "Controller: " + player.hasControllers, 24, 204);
+
+        app.batch.end();
     }
 
     public void update(float delta) {
@@ -108,7 +133,7 @@ public class TestStage implements Screen {
         player.update(delta);
 
         hud.update(delta);
-        backgroundStage.update(delta);
+        //backgroundStage.update(delta);
     }
 
     @Override
@@ -138,6 +163,6 @@ public class TestStage implements Screen {
         stage.dispose();
         hud.dispose();
         player.dispose();
-        background.dispose();
+        //background.dispose();
     }
 }

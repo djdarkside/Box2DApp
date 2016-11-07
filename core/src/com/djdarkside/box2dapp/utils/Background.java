@@ -17,7 +17,7 @@ import com.djdarkside.box2dapp.screens.LoadingScreen;
 public class Background implements Disposable {
 
     private final Application app;
-    private TextureRegion region;
+    private TextureRegion region, region1, region2;
     private SpriteBatch batch;
     private int levelNum;
     private OrthographicCamera bkgCam;
@@ -39,6 +39,10 @@ public class Background implements Disposable {
         } else if (levelNum == 2) {
             region = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND2, Texture.class));
             region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+        } else if (levelNum == 3) {
+            region = new TextureRegion(app.manager.get(LoadingScreen.BKG_FAR, Texture.class));
+            region.setRegion(0, 0, region.getRegionWidth(), region.getRegionHeight());
+            bkgCam.setToOrtho(false, region.getRegionWidth(), region.getRegionHeight());
         }
     }
 

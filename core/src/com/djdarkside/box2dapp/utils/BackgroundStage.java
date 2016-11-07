@@ -19,10 +19,10 @@ public class BackgroundStage implements Disposable{
 
     private final Application app;
     private SpriteBatch batch;
-    private OrthographicCamera bkgCam;
+    public OrthographicCamera bkgCam;
     public Stage stage;
-    public Image image;
-    public TextureRegion regionTex;
+    public Image image, image1, image2;
+    public TextureRegion regionTex, regionTex1, regionTex2;
 
     public BackgroundStage(final Application app, int levelNum) {
         this.app = app;
@@ -42,16 +42,31 @@ public class BackgroundStage implements Disposable{
             image = new Image(regionTex);
             image.setSize(image.getWidth() * 2, image.getHeight() * 2);
             stage.addActor(image);
+        } else if (levelNum == 3) {
+            regionTex = new TextureRegion(app.manager.get(LoadingScreen.BKG_FAR, Texture.class));
+            regionTex1 = new TextureRegion(app.manager.get(LoadingScreen.BKG_MID, Texture.class));
+            regionTex2 = new TextureRegion(app.manager.get(LoadingScreen.BKG_FOR, Texture.class));
+            image = new Image(regionTex);
+            image1 = new Image(regionTex1);
+            image2 = new Image(regionTex2);
+            image.setSize(image.getWidth() * 2, image.getHeight() * 2);
+            image1.setSize(image.getWidth(), image.getHeight());
+            image2.setSize(image.getWidth(), image.getHeight());
+            stage.addActor(image);
+            stage.addActor(image2);
+            stage.addActor(image1);
         }
     }
 
     public void update(float delta) {
         stage.act(delta);
+        //if (app.camera.position.x > current camera position)
+            //School image1
         bkgCam.update();
     }
 
     public void render(float delta) {
-        //stage.act(delta);
+        stage.act(delta);
     }
 
     public void dispose() {

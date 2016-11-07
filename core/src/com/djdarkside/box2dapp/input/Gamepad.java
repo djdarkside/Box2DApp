@@ -95,13 +95,13 @@ public class Gamepad implements ControllerListener {
 		// Like all normal people do! ;)
 
 		// Left Stick
-		if(axisCode == XBox360Pad.AXIS_LEFT_X)
+		if(axisCode == XBox360Pad.AXIS_LX)
 			sprite.translateX(10f * value);
-		if(axisCode == XBox360Pad.AXIS_LEFT_Y)
+		if(axisCode == XBox360Pad.AXIS_LY)
 			sprite.translateY(-10f * value);
 
 		// Right stick
-		if(axisCode == XBox360Pad.AXIS_RIGHT_X)
+		if(axisCode == XBox360Pad.AXIS_RX)
 			sprite.rotate(10f * value);
 		return false;
 	}
