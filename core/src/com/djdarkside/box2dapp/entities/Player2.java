@@ -122,7 +122,7 @@ public class Player2 {
             public boolean buttonDown(Controller controller, int buttonCode) {
                 if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
                     playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
-                    playerBody.applyForceToCenter(0, 300, true);
+                    playerBody.applyForceToCenter(0, 200, true);
                     currentState = playerState.JUMPING;
                 }
                 return false;
