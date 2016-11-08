@@ -33,8 +33,8 @@ public class TestStage implements Screen {
     private Hud hud;
     private Stage stage;
     //private Background background;
-    //private BackgroundStage backgroundStage;
-    private ParallaxTest test;
+    private BackgroundStage backgroundStage;
+    //private ParallaxTest test;
 
     private OrthogonalTiledMapRenderer tmr;
     private TiledMap map;
@@ -55,8 +55,8 @@ public class TestStage implements Screen {
         stage.clear();
         //key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
-        //backgroundStage = new BackgroundStage(app, 3);
-        test = new ParallaxTest(app);
+        backgroundStage = new BackgroundStage(app, 1);
+        //test = new ParallaxTest(app);
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
@@ -84,8 +84,8 @@ public class TestStage implements Screen {
         update(delta);
         stage.draw();
 
-        //backgroundStage.stage.draw();
-        test.render(delta);
+        backgroundStage.stage.draw();
+        //test.render(delta);
 
         //app.batch.begin();
         //app.batch.draw(key, 700, 280, key.getWidth() / 2, key.getHeight() / 2);
@@ -104,8 +104,8 @@ public class TestStage implements Screen {
         app.font.draw(app.batch, "Cam X:" + app.camera.position.x, 24, 564);
         app.font.draw(app.batch, "Cam Y:" + app.camera.position.y, 24, 534);
 
-        //app.font.draw(app.batch, "Bkg Cam X:" + backgroundStage.bkgCam.position.x, 24, 504);
-        //app.font.draw(app.batch, "Bkg Cam Y:" + backgroundStage.bkgCam.position.x, 24, 474);
+        app.font.draw(app.batch, "Bkg Cam X:" + backgroundStage.bkgCam.position.x, 24, 504);
+        app.font.draw(app.batch, "Bkg Cam Y:" + backgroundStage.bkgCam.position.x, 24, 474);
 
         app.font.draw(app.batch, "Player State:" + player.currentState, 24, 434);
 
@@ -133,7 +133,7 @@ public class TestStage implements Screen {
         player.update(delta);
 
         hud.update(delta);
-        //backgroundStage.update(delta);
+        backgroundStage.update(delta);
     }
 
     @Override
@@ -163,6 +163,6 @@ public class TestStage implements Screen {
         stage.dispose();
         hud.dispose();
         player.dispose();
-        //background.dispose();
+        backgroundStage.dispose();
     }
 }
