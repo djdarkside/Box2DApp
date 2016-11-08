@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.entities.Key;
-import com.djdarkside.box2dapp.entities.Player;
+import com.djdarkside.box2dapp.entities.Player2;
 import com.djdarkside.box2dapp.utils.*;
 
 /**
@@ -24,7 +24,7 @@ import com.djdarkside.box2dapp.utils.*;
 public class TestStage implements Screen {
 
     private final Application app;
-    private Player player;
+    private Player2 player2;
     //private Key keys;
     private World world;
 
@@ -55,13 +55,13 @@ public class TestStage implements Screen {
         stage.clear();
         //key = new Sprite(app.manager.get(LoadingScreen.KEY, Texture.class));
 
-        backgroundStage = new BackgroundStage(app, 1);
+        backgroundStage = new BackgroundStage(app,2);
         //test = new ParallaxTest(app);
 
         world = WorldUtils.createWorld();
         b2dr = new Box2DDebugRenderer();
 
-        player = new Player(app, world);
+        player2 = new Player2(app, world);
 
         map = app.manager.get(LoadingScreen.MAP);
         //keys = new Key(app, world, "Yellow", map);
@@ -93,7 +93,7 @@ public class TestStage implements Screen {
 
         tmr.render();
         //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
-        player.render(delta, true);
+        player2.render(delta, true);
 
         //keys.render(delta, keys.keyBody);
 
@@ -107,15 +107,15 @@ public class TestStage implements Screen {
         app.font.draw(app.batch, "Bkg Cam X:" + backgroundStage.bkgCam.position.x, 24, 504);
         app.font.draw(app.batch, "Bkg Cam Y:" + backgroundStage.bkgCam.position.x, 24, 474);
 
-        app.font.draw(app.batch, "Player State:" + player.currentState, 24, 434);
+        app.font.draw(app.batch, "Player State:" + player2.currentState, 24, 434);
 
-        app.font.draw(app.batch, "Box Pos X:" + player.getPlayerBody().getPosition().x, 24, 334);
-        app.font.draw(app.batch, "Box Pos Y:" + player.getPlayerBody().getPosition().y, 24, 304);
+        app.font.draw(app.batch, "Box Pos X:" + player2.getPlayerBody().getPosition().x, 24, 334);
+        app.font.draw(app.batch, "Box Pos Y:" + player2.getPlayerBody().getPosition().y, 24, 304);
 
-        app.font.draw(app.batch, "Pos X:" + player.getPlayerBody().getPosition().x * Constants.PPM, 24, 264);
-        app.font.draw(app.batch, "Pos Y:" + player.getPlayerBody().getPosition().y * Constants.PPM, 24, 234);
+        app.font.draw(app.batch, "Pos X:" + player2.getPlayerBody().getPosition().x * Constants.PPM, 24, 264);
+        app.font.draw(app.batch, "Pos Y:" + player2.getPlayerBody().getPosition().y * Constants.PPM, 24, 234);
 
-        app.font.draw(app.batch, "Controller: " + player.hasControllers, 24, 204);
+        app.font.draw(app.batch, "Controller: " + player2.hasControllers, 24, 204);
 
         app.batch.end();
     }
@@ -124,13 +124,13 @@ public class TestStage implements Screen {
         world.step(1 / 60f, 6, 2);
         stage.act(delta);
 
-        CameraStyles.lerpToTarget(app.camera, player.getPlayerBody().getPosition().scl(Constants.PPM));
+        CameraStyles.lerpToTarget(app.camera, player2.getPlayerBody().getPosition().scl(Constants.PPM));
         float startX = app.camera.viewportWidth / 2;
         float startY = app.camera.viewportHeight / 2;
         CameraStyles.camBoundry(app.camera, startX, startY, levelWidth * Constants.PPM - startX * 2, levelHeight * Constants.PPM - startY * 2);
 
         tmr.setView(app.camera);
-        player.update(delta);
+        player2.update(delta);
 
         hud.update(delta);
         backgroundStage.update(delta);
@@ -162,7 +162,7 @@ public class TestStage implements Screen {
         b2dr.dispose();
         stage.dispose();
         hud.dispose();
-        player.dispose();
+        player2.dispose();
         backgroundStage.dispose();
     }
 }
