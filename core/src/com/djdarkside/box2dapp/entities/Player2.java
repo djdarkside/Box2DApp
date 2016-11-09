@@ -49,6 +49,7 @@ public class Player2 {
     public boolean hasControllers = true;
     public boolean movingRight = false;
     public boolean movingLeft = false;
+    public boolean isJumping = false;
 
     public Player2(final Application app, World world) {
         this.app = app;
@@ -101,7 +102,7 @@ public class Player2 {
 
     public void update(float delta) {
         //if (setting.keyboard == true) {
-            //inputUpdate(delta); // keyboard movement
+            inputUpdate(delta); // keyboard movement
         //}
         //if (setting.controller == true) {
             updateMotion();  // controller movement
@@ -121,15 +122,17 @@ public class Player2 {
             @Override
             public boolean buttonDown(Controller controller, int buttonCode) {
                 if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
-                    playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
-                    playerBody.applyForceToCenter(0, 200, true);
-                    currentState = playerState.JUMPING;
+                    isJumping = true;
+                    jump();
                 }
                 return false;
             }
 
             @Override
             public boolean buttonUp(Controller controller, int buttonCode) {
+                if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
+                    isJumping = false;
+                }
                 return false;
             }
 
@@ -212,6 +215,14 @@ public class Player2 {
         movingRight = t;
     }
 
+    public void jump() {
+        if (isJumping) {
+            playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
+            playerBody.applyForceToCenter(0, 200f, true);
+            currentState = playerState.JUMPING;
+        }
+    }
+
     // For Keyboard Movement
     public void inputUpdate(float delta) {
         currentState = playerState.STANDING;
@@ -223,10 +234,13 @@ public class Player2 {
             setLeftMove(false);
             setRightMove(false);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && currentState != playerState.JUMPING) {
-            playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
-            playerBody.applyForceToCenter(0, 300, true);
-            currentState = playerState.JUMPING;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            if (currentState != playerState.JUMPING) {
+                isJumping = true;
+                jump();
+            } else {
+                isJumping = false;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.P)) {
