@@ -102,7 +102,7 @@ public class Player2 {
 
     public void update(float delta) {
         //if (setting.keyboard == true) {
-            inputUpdate(delta); // keyboard movement
+            //inputUpdate(delta); // keyboard movement
         //}
         //if (setting.controller == true) {
             updateMotion();  // controller movement
@@ -121,10 +121,11 @@ public class Player2 {
 
             @Override
             public boolean buttonDown(Controller controller, int buttonCode) {
-                if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
+                if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING && currentState != playerState.FALLING) {
                     isJumping = true;
                     jump();
                 }
+                isJumping = false;
                 return false;
             }
 
@@ -216,7 +217,7 @@ public class Player2 {
     }
 
     public void jump() {
-        if (isJumping) {
+        if (isJumping == true) {
             playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
             playerBody.applyForceToCenter(0, 200f, true);
             currentState = playerState.JUMPING;
