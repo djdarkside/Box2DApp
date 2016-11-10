@@ -45,7 +45,6 @@ public class Player2 {
     public Animation[] anim;
     public static int index = 2;
 
-
     public boolean hasControllers = true;
     public boolean movingRight = false;
     public boolean movingLeft = false;
@@ -101,16 +100,10 @@ public class Player2 {
     }
 
     public void update(float delta) {
-        //if (setting.keyboard == true) {
-            //inputUpdate(delta); // keyboard movement
-        //}
-        //if (setting.controller == true) {
-            updateMotion();  // controller movement
-        //}
-
-
-        Controllers.addListener(new ControllerListener() {
-
+        inputUpdate(delta);
+        updateMotion(delta);
+        Controllers.addListener(new ControllerAdapter() {
+            float delta = Gdx.graphics.getDeltaTime();
             @Override
             public void connected(Controller controller) {
             }
@@ -123,12 +116,11 @@ public class Player2 {
             public boolean buttonDown(Controller controller, int buttonCode) {
                 if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING && currentState != playerState.FALLING) {
                     isJumping = true;
-                    jump();
+                    jump(delta);
                 }
                 isJumping = false;
                 return false;
             }
-
             @Override
             public boolean buttonUp(Controller controller, int buttonCode) {
                 if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
@@ -136,7 +128,6 @@ public class Player2 {
                 }
                 return false;
             }
-
             @Override
             public boolean axisMoved(Controller controller, int axisCode, float value) {
                 if (controller.getAxis(XBox360Pad.AXIS_LX) > 0.3f || controller.getAxis(XBox360Pad.AXIS_LX) < -0.3f) {
@@ -153,21 +144,6 @@ public class Player2 {
             }
             @Override
             public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-                return false;
-            }
-
-            @Override
-            public boolean xSliderMoved(Controller controller, int sliderCode, boolean value) {
-                return false;
-            }
-
-            @Override
-            public boolean ySliderMoved(Controller controller, int sliderCode, boolean value) {
-                return false;
-            }
-
-            @Override
-            public boolean accelerometerMoved(Controller controller, int accelerometerCode, Vector3 value) {
                 return false;
             }
         });
@@ -191,7 +167,7 @@ public class Player2 {
         }
     }
 
-    public void updateMotion() {
+    public void updateMotion(float delta) {
         float horizontalForce = 0;
         currentState = playerState.STANDING;
         if (movingLeft) {
@@ -216,7 +192,7 @@ public class Player2 {
         movingRight = t;
     }
 
-    public void jump() {
+    public void jump(float delta) {
         if (isJumping == true) {
             playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
             playerBody.applyForceToCenter(0, 200f, true);
@@ -224,7 +200,6 @@ public class Player2 {
         }
     }
 
-    // For Keyboard Movement
     public void inputUpdate(float delta) {
         currentState = playerState.STANDING;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -238,7 +213,7 @@ public class Player2 {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             if (currentState != playerState.JUMPING) {
                 isJumping = true;
-                jump();
+                jump(delta);
             } else {
                 isJumping = false;
             }
