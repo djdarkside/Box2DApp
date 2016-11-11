@@ -72,7 +72,15 @@ public class Player2 {
             for (int j = 0; j < FRAME_COLS; j++) {
                 walkFrames[j] = tmp[i][j];
             }
+            //Full Animation
             anim[i] = new Animation(.5f, walkFrames);// #11
+
+            //need logic to make sure standing is pointing the right way..all need to do is change value in walkframes and that the index anim[1] is pointing to the right side
+            //if (currentState == playerState.STANDING) {
+            //    anim[1] = new Animation(.5f, walkFrames[0]); left
+            //    anim[2] = new Animation(.5f, walkFrames[1]); right
+            //}
+            //
         }
         stateTime = 0f;
     }
