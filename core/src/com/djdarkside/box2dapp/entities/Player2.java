@@ -83,6 +83,7 @@ public class Player2 {
             //
         }
         stateTime = 0f;
+        
     }
 
     public void renderAnimation(int index, float delta) {
