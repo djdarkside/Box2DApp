@@ -2,13 +2,15 @@ package com.djdarkside.box2dapp.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.controllers.*;
+import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.controllers.ControllerAdapter;
+import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -22,7 +24,7 @@ import com.djdarkside.box2dapp.utils.WorldUtils;
 /**
  * Created by djdarkside on 10/22/2016.
  */
-public class Player2 {
+public class Player3 {
 
     public enum playerState {FALLING, JUMPING, STANDING, WALKING, DEAD, ATTACKING}
     public playerState currentState;
@@ -49,16 +51,16 @@ public class Player2 {
     public boolean movingLeft = false;
     public boolean isJumping = false;
 
-    public Player2(final Application app, World world) {
+    public Player3(final Application app, World world) {
         this.app = app;
         this.world = world;
         if(Controllers.getControllers().size == 0) hasControllers = false;
-        playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        playerSpriteLeft = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        playerSpriteLeft.flip(true, false);
+        //playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        //playerSpriteLeft = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        //playerSpriteLeft.flip(true, false);
         initBody();
-        initSprite();
-        createAnimation();
+        //initSprite();
+        //createAnimation();
     }
 
     public void createAnimation() {

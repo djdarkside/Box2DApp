@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.djdarkside.box2dapp.screens.LoadingScreen;
-import com.djdarkside.box2dapp.screens.MainMenu;
-import com.djdarkside.box2dapp.screens.PlayStage;
-import com.djdarkside.box2dapp.screens.TestStage;
+import com.djdarkside.box2dapp.screens.*;
 import com.djdarkside.box2dapp.utils.Constants;
 
 public class Application extends Game {
@@ -23,6 +20,8 @@ public class Application extends Game {
     public MainMenu mStage;
     public PlayStage pStage;
     public TestStage tStage;
+    public TestStage2 tStage2;
+    public GameOver gOver;
 
     @Override
 	public void create () {
@@ -36,6 +35,8 @@ public class Application extends Game {
         mStage = new MainMenu(this);
         pStage = new PlayStage(this);
         tStage = new TestStage(this);
+        tStage2 = new TestStage2(this);
+        gOver = new GameOver(this);
         this.setScreen(lStage);
 	}
 

@@ -41,6 +41,9 @@ public class LoadingScreen implements Screen {
     public static final String KEY = "images/keyYellow.png";
     public static final String BACKGROUND2 = "maps/background.png";
 
+    public static final String BKG_ATLAS = "images/bg.atlas";
+    public static final String BKG_PNG = "images/bg.png";
+
     private float progress;
     private ShapeRenderer renderer;
 
@@ -65,6 +68,9 @@ public class LoadingScreen implements Screen {
 
         app.manager.load(UISKIN, Texture.class);
         app.manager.load(UISKINATLAS, TextureAtlas.class);
+
+        app.manager.load(BKG_PNG, Texture.class);
+        app.manager.load(BKG_ATLAS, TextureAtlas.class);
     }
 
     public void update(float delta) {

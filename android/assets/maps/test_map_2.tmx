@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="31">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="22" tilewidth="32" tileheight="32" nextobjectid="32">
  <tileset firstgid="1" name="Test" tilewidth="0" tileheight="0" tilecount="0" columns="0"/>
  <tileset firstgid="1" name="spritesheet_complete" tilewidth="32" tileheight="32" tilecount="8192" columns="128">
   <image source="spritesheet_complete.png" trans="ff00ff" width="4096" height="2048"/>
@@ -9,12 +9,12 @@
  </tileset>
  <layer name="Tile Layer 1" width="80" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt2EtP1FAYxvHXmLhyLfF+OmU6iXu2iuBwkYUmJsqKlVdUUHQBBhXEjZe9fgEQUTZe9rrRlQIiLv0M3gWjwr+xTXsm7bSUGSTDeZJfZnrmnObMkxbSETExyZ7N9vLGTfQ0xPQUN26ix+/pgRIZx4TSx03Kx+9pWonMYFbp4ybl4/e0oER+4bfSx03Kp8vrKWeJ2Mhb+rhJfAbzIldxDdcxhGHcwAhu5v/3Dtd2RulnDB0Yx0NM4BEeY9L0F5s3dPMWU5jGDN5hFu8xhw+mPy1f6eMbvuMHfmIeC3jK37uPeIY/HP/FotufI7LBCdbWYvaodPN20MNO7MJuKFjIOfo8h+MCbtHlbdzBXbt2r8cjKt28Ip20OP+uNfc6a+f9QXR4/Y155znE8WE8sYO5z2FXuL9X/K9/bSW/VjuDKt28HjrpDV1rfby/hMve2JR3nn6OB3DFiV+bNavVyXIyqtLNu8f3vx/qwP2NoDEX/FYwr6LHo9bWUvz7Likv+P4vQx00eD35zxqWFT0etTYp4e5Xes1V+7cg/75LiruP8F7CPX2im8/44kT3V7o2KZV8/qv2s6R/3yXF3Ud4L11eT+7r1oLINmwv6ONxa5NSyee/aj9LWinvDXcfro31InvpaR8asR9NaMYBFNGCVrRhU32wtjRHlcixdeI4XZzASZzCaZxBN87iHM6jB724gIvoKwRrw+frxJackVVdys/rMog6V+nnWc67Vvj7XwKAucXh
+   eJzt2MlP1GAcxvGfMfHkWeL+dsp0Eu9cFRdQ5KCJiXrihIIbIHoQg6DixeWu/wCIqBeXO170JKt69G9wB4zbt7FN33fSTsvE4jB5n+STmb7zvp15n7SQGREbm+qz3l3euI2ZpoSeksZtzIQ93Vci45hQ5rhN5YQ9zSiRWcwrc9ymcsKelpTId/xQ5rhN5XQEPRUcERdFxxy3Sc5gUeQKhjCMq7iG6xjBjeL//oS1nVH6GUM7xvEAE3iIR3hs+0vMa7qZwjRmMIs5zOMN3uKd7c/IZ/r4gq/4hgUsYglP+Xv3Hs/wk+Nf+O3354ms8aK19ZgdKtu8LfSwFduwHQoOCp45z+O4hJt0eQu3ccet3+vxiMo2r4VOWr2/15p/nbXx/CDag/7GgvMc4vgwnrjR3Odw/3F/L/lf/8pJf8w7gyrbvB466dWutX6eX8DFYGw6OM8ljgdw2UteW21WqpPlZFRlm3eX/d/TOvB/I2guRL8VLKr48bi19ZTwvkvLJPt/oXXQFPQUftdwnPjxuLVp0buvxWtOT3jfpcXfk74vvacPdPMRn7z4/srXpmU1ff8L77u0+HvS99UR9OQ/biyJbMLmkjmetDYtq+n7n5Px3vD35FvbKLKTnnahGbuxB3uxDy1oxX4cwLrGaG15jiqRYznSk+f7ZNFJFydwEl3oximcxhmcxTn0oBd9OI/+UrRWP99xbCjkS0/e77XSGjK+3lCFuP7KX6/mvLUi/Px/ADpWwiM=
   </data>
  </layer>
  <objectgroup name="collision-layer">
   <object id="3" x="-1.33195" y="544">
-   <polyline points="1.33195,64 2561.33,64"/>
+   <polyline points="865.332,64 2561.33,64"/>
   </object>
   <object id="4" x="2560" y="638.667">
    <polyline points="0,33.333 0,-638.667 -2560,-638.667 -2560,1.33333"/>
@@ -29,6 +29,9 @@
   <object id="24" x="384" y="448" width="64" height="32"/>
   <object id="25" x="480" y="416" width="320" height="32"/>
   <object id="29" x="865.5" y="417" width="256" height="32"/>
+  <object id="31" x="863" y="609">
+   <polyline points="0,0 1,127 -95,127 -95,-1 -863,-1"/>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 2" width="80" height="22">
   <data encoding="base64" compression="zlib">
