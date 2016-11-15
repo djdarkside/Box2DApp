@@ -34,10 +34,21 @@ public class WorldUtils {
         pBody = world.createBody(def);
 
         PolygonShape shape = new PolygonShape();
+        PolygonShape feet = new PolygonShape();
         shape.setAsBox(width / 2 / Constants.PPM, height / 2 / Constants.PPM);
+        feet.setAsBox(width / 4 / Constants.PPM, height  / 8 / Constants.PPM, new Vector2(0, -14f / Constants.PPM), 0);
+        FixtureDef fDefBody = new FixtureDef();
+        FixtureDef fDefFoot = new FixtureDef();
+        fDefBody.shape = shape;
+        fDefBody.density = density;
+        fDefFoot.shape = feet;
+        fDefFoot.isSensor = true;
 
-        pBody.createFixture(shape, density);
+        pBody.createFixture(fDefBody);
+        pBody.createFixture(fDefFoot).setUserData("Feet");
+
         shape.dispose();
+        feet.dispose();
         return pBody;
     }
 

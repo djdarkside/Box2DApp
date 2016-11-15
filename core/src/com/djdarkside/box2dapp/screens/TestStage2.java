@@ -3,6 +3,7 @@ package com.djdarkside.box2dapp.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,6 +31,7 @@ public class TestStage2 implements Screen {
     private World world;
 
     private Box2DDebugRenderer b2dr;
+    private OrthographicCamera b2dCam;
     private Hud hud;
     private Stage stage;
 
@@ -47,6 +49,7 @@ public class TestStage2 implements Screen {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH * Constants.SCALE, Constants.V_HEIGHT * Constants.SCALE));
         hud = new Hud(app.batch);
+        b2dCam = new OrthographicCamera();
     }
 
     @Override
@@ -93,8 +96,10 @@ public class TestStage2 implements Screen {
         rbg.render(delta);
 
         tmr.render();
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
-        player3.render(delta, false);
+        b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+
+        player3.render(delta, true);
 
         //keys.render(delta, keys.keyBody);
 

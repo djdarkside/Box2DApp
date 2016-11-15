@@ -55,12 +55,12 @@ public class Player3 {
         this.app = app;
         this.world = world;
         if(Controllers.getControllers().size == 0) hasControllers = false;
-        //playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        //playerSpriteLeft = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
-        //playerSpriteLeft.flip(true, false);
+        playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        playerSpriteLeft = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
+        playerSpriteLeft.flip(true, false);
         initBody();
-        //initSprite();
-        //createAnimation();
+        initSprite();
+        createAnimation();
     }
 
     public void createAnimation() {
