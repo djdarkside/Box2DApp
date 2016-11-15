@@ -95,8 +95,10 @@ public class TestStage2 implements Screen {
 
         rbg.render(delta);
 
+        tmr.setView(app.camera);
         tmr.render();
-        b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
+
+        //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
         //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
