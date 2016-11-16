@@ -105,7 +105,7 @@ public class Player3 {
         playerSpriteLeft.setOrigin(playerSpriteLeft.getWidth() / 2, playerSpriteLeft.getHeight() / 2);
     }
     private void initBody() {
-        playerBody = WorldUtils.createBox(world, 140, 140, 18, 30, false, true, 1.0f);
+        playerBody = WorldUtils.createPlayer(world, 140, 140, 18, 30, false, true, 1.0f, true);
         playerBody.setUserData(playerSprite);
     }
 

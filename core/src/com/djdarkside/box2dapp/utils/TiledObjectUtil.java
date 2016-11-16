@@ -52,8 +52,12 @@ public class TiledObjectUtil {
             BodyDef bd = new BodyDef();
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = world.createBody(bd);
-            body.createFixture(shape, 1);
-
+            // Added by me for contact bits
+            FixtureDef fdef = new FixtureDef();
+            fdef.filter.categoryBits = Constants.FLOOR_BIT;
+            fdef.density = 1;
+            body.createFixture(fdef);
+            ///
             bodies.add(body);
 
             shape.dispose();

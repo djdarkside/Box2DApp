@@ -10,4 +10,8 @@ public final class Constants {
     public static final float PPM = 32;
     public static final float GRAVITY = -9.8f;
     public static final float SCALE = 2.0f;
+
+    //Contact Bits
+    public static final int FLOOR_BIT = 2;
+    public static final int PLAYER_BIT = 4;
 }
