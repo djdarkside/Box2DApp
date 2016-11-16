@@ -108,7 +108,7 @@ public class Player2 {
     }
 
     public void update(float delta) {
-        inputUpdate(delta);
+        //inputUpdate(delta);
         updateMotion(delta);
 
 

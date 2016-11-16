@@ -12,6 +12,6 @@ public final class Constants {
     public static final float SCALE = 2.0f;
 
     //Contact Bits
-    public static final int FLOOR_BIT = 2;
-    public static final int PLAYER_BIT = 4;
+    public static final short FLOOR_BIT = 2;
+    public static final short PLAYER_BIT = 4;
 }

@@ -18,6 +18,7 @@ import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.input.XBox360Pad;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
 import com.djdarkside.box2dapp.utils.Constants;
+import com.djdarkside.box2dapp.utils.MyContactListener;
 import com.djdarkside.box2dapp.utils.WorldUtils;
 
 
@@ -54,6 +55,7 @@ public class Player3 {
     public Player3(final Application app, World world) {
         this.app = app;
         this.world = world;
+        world.setContactListener(app.contact);
         if(Controllers.getControllers().size == 0) hasControllers = false;
         playerSprite = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
         playerSpriteLeft = new Sprite(app.manager.get(LoadingScreen.PLAYER, Texture.class));
@@ -86,7 +88,6 @@ public class Player3 {
         stateTime = 0f;
         
     }
-
     public void renderAnimation(int index, float delta) {
         this.index = index;
         app.batch.setProjectionMatrix(app.camera.combined);
@@ -97,7 +98,6 @@ public class Player3 {
                 (playerBody.getPosition().y * Constants.PPM) - (currentFrame.getRegionHeight() / 2));
         app.batch.end();
     }
-
     private void initSprite() {
         playerSprite.setSize(playerSprite.getWidth() / Constants.PPM, playerSprite.getHeight() / Constants.PPM);
         playerSprite.setOrigin(playerSprite.getWidth() / 2, playerSprite.getHeight() / 2);
@@ -112,8 +112,7 @@ public class Player3 {
     public void update(float delta) {
         inputUpdate(delta);
         updateMotion(delta);
-
-
+        
         Controllers.addListener(new ControllerAdapter() {
             float delta = Gdx.graphics.getDeltaTime();
             @Override
@@ -127,16 +126,16 @@ public class Player3 {
             @Override
             public boolean buttonDown(Controller controller, int buttonCode) {
                 if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING && currentState != playerState.FALLING) {
-                    isJumping = true;
+                    //isJumping = true;
                     jump(delta);
                 }
-                isJumping = false;
+                //isJumping = false;
                 return false;
             }
             @Override
             public boolean buttonUp(Controller controller, int buttonCode) {
-                if (buttonCode == XBox360Pad.BUTTON_A && currentState != playerState.JUMPING) {
-                    isJumping = false;
+                if (buttonCode == XBox360Pad.BUTTON_A) {
+                    //isJumping = false;
                 }
                 return false;
             }
@@ -205,12 +204,14 @@ public class Player3 {
     }
 
     public void jump(float delta) {
-        if (isJumping == true) {
-            playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
-            playerBody.applyForceToCenter(0, 200f, true);
-            currentState = playerState.JUMPING;
-        }
-        isJumping = false;
+        //if (isJumping == true) {
+            if (app.contact.isPlayerOnGround()) {
+                playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
+                playerBody.applyForceToCenter(0, 200f, true);
+                currentState = playerState.JUMPING;
+            }
+        //}
+        //isJumping = false;
     }
 
     public void inputUpdate(float delta) {
@@ -225,10 +226,10 @@ public class Player3 {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             if (currentState != playerState.JUMPING) {
-                isJumping = true;
+                //isJumping = true;
                 jump(delta);
             } else {
-                isJumping = false;
+                //isJumping = false;
             }
         }
 

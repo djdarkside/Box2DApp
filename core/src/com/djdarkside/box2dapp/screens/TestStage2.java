@@ -58,6 +58,8 @@ public class TestStage2 implements Screen {
         stage.clear();
 
         world = WorldUtils.createWorld();
+        world.setContactListener(app.contact);
+
         b2dr = new Box2DDebugRenderer();
 
         player3 = new Player3(app, world);
@@ -99,10 +101,9 @@ public class TestStage2 implements Screen {
         tmr.render();
 
         //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
-
         //keys.render(delta, keys.keyBody);
 
         hud.stage.draw();

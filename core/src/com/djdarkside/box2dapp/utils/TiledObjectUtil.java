@@ -52,15 +52,23 @@ public class TiledObjectUtil {
             BodyDef bd = new BodyDef();
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = world.createBody(bd);
-            // Added by me for contact bits
-            FixtureDef fdef = new FixtureDef();
-            fdef.filter.categoryBits = Constants.FLOOR_BIT;
-            fdef.density = 1;
-            body.createFixture(fdef);
-            ///
-            bodies.add(body);
 
+            FixtureDef fdef = new FixtureDef();
+            fdef.shape = shape;
+            fdef.filter.categoryBits = Constants.FLOOR_BIT;
+            //fdef.filter.maskBits = Constants.PLAYER_BIT;
+            fdef.density = 1;
+            body.createFixture(fdef).setUserData("GROUND");
+            bodies.add(body);
             shape.dispose();
+/*
+            BodyDef bd = new BodyDef();
+            bd.type = BodyDef.BodyType.StaticBody;
+            Body body = world.createBody(bd);
+            body.createFixture(shape, 1.0f);
+            bodies.add(body);
+            shape.dispose();
+*/
         }
         return bodies;
     }

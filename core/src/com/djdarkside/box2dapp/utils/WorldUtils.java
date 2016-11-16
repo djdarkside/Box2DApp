@@ -70,6 +70,7 @@ public class WorldUtils {
         FixtureDef fDefBody = new FixtureDef();
         fDefBody.shape = shape;
         fDefBody.density = density;
+        fDefBody.filter.categoryBits = Constants.PLAYER_BIT;
         pBody.createFixture(fDefBody);
         shape.dispose();
 
@@ -80,11 +81,10 @@ public class WorldUtils {
             fDefFoot.shape = feet;
             fDefFoot.isSensor = true;
             fDefFoot.filter.categoryBits = Constants.PLAYER_BIT;
-            fDefFoot.filter.maskBits = Constants.FLOOR_BIT;
+            //fDefFoot.filter.maskBits = Constants.FLOOR_BIT;
             pBody.createFixture(fDefFoot).setUserData("Feet");
             feet.dispose();
         }
-
         return pBody;
     }
 

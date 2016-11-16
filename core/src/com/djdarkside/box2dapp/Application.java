@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.djdarkside.box2dapp.screens.*;
 import com.djdarkside.box2dapp.utils.Constants;
+import com.djdarkside.box2dapp.utils.MyContactListener;
 
 public class Application extends Game {
 
@@ -15,6 +16,7 @@ public class Application extends Game {
     public SpriteBatch batch;
     public static BitmapFont font;
     public AssetManager manager;
+    public MyContactListener contact;
 
     public LoadingScreen lStage;
     public MainMenu mStage;
@@ -31,6 +33,7 @@ public class Application extends Game {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+        contact = new MyContactListener();
         lStage = new LoadingScreen(this);
         mStage = new MainMenu(this);
         pStage = new PlayStage(this);
