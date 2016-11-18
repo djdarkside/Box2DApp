@@ -20,17 +20,17 @@ public class Entity {
     protected Sprite sprite;
     protected World world;
     protected Body body;
-    protected enum EntityState{FALLING, JUMPING, STANDING, WALKING, DEAD}
+    protected enum state{FALLING, JUMPING, STANDING, WALKING, DEAD, ATTACKING, DEFENDING, HIT}
 
     public Entity(final Application app, World world) {
         this.app = app;
         this.world = world;
     }
 
-    protected void render(float delta) {}
+    public void render(float delta) {}
 
-    protected void update(float delta) {}
+    public void update(float delta) {}
 
-    protected void dispose() {}
+    public void dispose() {}
 
 }

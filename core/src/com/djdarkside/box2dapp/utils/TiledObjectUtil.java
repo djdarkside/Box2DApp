@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.Array;
 public class TiledObjectUtil {
 
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
-    private static float ppt = 0;
+    private static float PPM = 0;
 
     public static Array<Body> buildShapes(Map map, float pixels, World world, String mapLayer) {
-        ppt = pixels;
+        PPM = pixels;
         MapObjects objects = map.getLayers().get(mapLayer).getObjects();
 
         Array<Body> bodies = new Array<Body>();
@@ -76,10 +76,10 @@ public class TiledObjectUtil {
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
-        Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / ppt,
-                (rectangle.y + rectangle.height * 0.5f ) / ppt);
-        polygon.setAsBox(rectangle.width * 0.5f / ppt,
-                rectangle.height * 0.5f / ppt,
+        Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) / PPM,
+                (rectangle.y + rectangle.height * 0.5f ) / PPM);
+        polygon.setAsBox(rectangle.width * 0.5f / PPM,
+                rectangle.height * 0.5f / PPM,
                 size,
                 0.0f);
         return polygon;
@@ -88,16 +88,16 @@ public class TiledObjectUtil {
     private static CircleShape getCircle(CircleMapObject circleObject) {
         Circle circle = circleObject.getCircle();
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(circle.radius / ppt);
-        circleShape.setPosition(new Vector2(circle.x / ppt, circle.y / ppt));
+        circleShape.setRadius(circle.radius / PPM);
+        circleShape.setPosition(new Vector2(circle.x / PPM, circle.y / PPM));
         return circleShape;
     }
     private static CircleShape getEllipse(EllipseMapObject ellipseObject) {
         Ellipse ellipse = ellipseObject.getEllipse();
         CircleShape circleShape = new CircleShape();
         //Needed to find Radius of an ellyspe (c = 2pi R squared)
-        circleShape.setRadius((ellipse.circumference() / (2 * MathUtils.PI)) / ppt);
-        circleShape.setPosition(new Vector2(ellipse.x / ppt, ellipse.y / ppt));
+        circleShape.setRadius((ellipse.circumference() / (2 * MathUtils.PI)) / PPM);
+        circleShape.setPosition(new Vector2(ellipse.x / PPM, ellipse.y / PPM));
         return circleShape;
     }
 
@@ -109,7 +109,7 @@ public class TiledObjectUtil {
 
         for (int i = 0; i < vertices.length; ++i) {
             System.out.println(vertices[i]);
-            worldVertices[i] = vertices[i] / ppt;
+            worldVertices[i] = vertices[i] / PPM;
         }
 
         polygon.set(worldVertices);
@@ -122,8 +122,8 @@ public class TiledObjectUtil {
 
         for (int i = 0; i < vertices.length / 2; ++i) {
             worldVertices[i] = new Vector2();
-            worldVertices[i].x = vertices[i * 2] / ppt;
-            worldVertices[i].y = vertices[i * 2 + 1] / ppt;
+            worldVertices[i].x = vertices[i * 2] / PPM;
+            worldVertices[i].y = vertices[i * 2 + 1] / PPM;
         }
 
         ChainShape chain = new ChainShape();
