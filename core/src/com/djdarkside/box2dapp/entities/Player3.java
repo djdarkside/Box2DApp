@@ -159,6 +159,7 @@ public class Player3 {
             }
         });
     }
+
     public void render(float delta, Boolean isAnimated) {
         if (isAnimated && currentState != playerState.STANDING) renderAnimation(index, delta);
         else {
