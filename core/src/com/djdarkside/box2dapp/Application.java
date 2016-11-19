@@ -24,6 +24,7 @@ public class Application extends Game {
     public TestStage tStage;
     public TestStage2 tStage2;
     public GameOver gOver;
+    public SettingsMenu sMenu;
 
     @Override
 	public void create () {
@@ -40,6 +41,7 @@ public class Application extends Game {
         tStage = new TestStage(this);
         tStage2 = new TestStage2(this);
         gOver = new GameOver(this);
+        sMenu = new SettingsMenu(this);
         this.setScreen(lStage);
 	}
 
