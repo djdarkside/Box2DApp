@@ -208,7 +208,7 @@ public class Player3 {
         //if (isJumping == true) {
             if (app.contact.isPlayerOnGround()) {
                 playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 0);
-                playerBody.applyForceToCenter(0, 200f, true);
+                playerBody.applyForceToCenter(0, 320f, true);
                 currentState = playerState.JUMPING;
             }
         //}

@@ -20,7 +20,7 @@
    <polyline points="0,33.333 0,-638.667 -2560,-638.667 -2560,1.33333"/>
   </object>
   <object id="7" x="2048" y="606.5">
-   <polyline points="-96,1.5 -64,-30.5 64,-30.5 64,-94.5 160,-94.5 160,-30.5 288,-30.5 320,1.5 352,1.5 448,1.5 512,1.5"/>
+   <polyline points="-79,2.83333 -47.3333,-30.1667 64,-30.5 64,-94.5 160,-94.5 160,-30.5 271.333,-31.1667 306,1.5 352,1.5 448,1.5 512,1.5"/>
   </object>
   <object id="8" x="1568" y="608">
    <polyline points="0,0 0,-128 32,-128 32,0 0,0"/>
@@ -41,4 +41,9 @@
  <objectgroup color="#ff0000" name="keys">
   <object id="30" name="yellow_key" x="1089.33" y="386.667" width="30.6667" height="28"/>
  </objectgroup>
+ <layer name="Tile Layer 3" width="80" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAAAAAACAlwEbgAAB
+  </data>
+ </layer>
 </map>

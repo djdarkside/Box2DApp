@@ -44,6 +44,15 @@ public class LoadingScreen implements Screen {
     public static final String BKG_ATLAS = "images/bg.atlas";
     public static final String BKG_PNG = "images/bg.png";
 
+    //layered bg
+    public static final String BKG5A = "images/bg1/bg5_a.png";
+    public static final String BKG5B = "images/bg1/bg5_b.png";
+    public static final String BKG5C = "images/bg1/bg5_c.png";
+    public static final String BKG5D = "images/bg1/bg5_d.png";
+    public static final String BKG5E = "images/bg1/bg5_e.png";
+    public static final String BKG5F = "images/bg1/bg5_f.png";
+    public static final String BKG5G = "images/bg1/bg5_g.png";
+
     private float progress;
     private ShapeRenderer renderer;
 
@@ -71,6 +80,15 @@ public class LoadingScreen implements Screen {
 
         app.manager.load(BKG_PNG, Texture.class);
         app.manager.load(BKG_ATLAS, TextureAtlas.class);
+
+        //load layered bg
+        app.manager.load(BKG5A, Texture.class);
+        app.manager.load(BKG5B, Texture.class);
+        app.manager.load(BKG5C, Texture.class);
+        app.manager.load(BKG5D, Texture.class);
+        app.manager.load(BKG5E, Texture.class);
+        app.manager.load(BKG5F, Texture.class);
+        app.manager.load(BKG5G, Texture.class);
     }
 
     public void update(float delta) {

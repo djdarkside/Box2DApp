@@ -45,6 +45,15 @@ public class TestStage2 implements Screen {
     private TextureAtlas atlas;
     private TextureRegion bkg;
 
+    //layered bg
+    private TextureRegion bg5a;
+    private TextureRegion bg5b;
+    private TextureRegion bg5c;
+    private TextureRegion bg5d;
+    private TextureRegion bg5e;
+    private TextureRegion bg5f;
+    private TextureRegion bg5g;
+
     public TestStage2(final Application app) {
         this.app = app;
         stage = new Stage(new FitViewport(Constants.V_WIDTH * Constants.SCALE, Constants.V_HEIGHT * Constants.SCALE));
@@ -65,7 +74,7 @@ public class TestStage2 implements Screen {
         player3 = new Player3(app, world);
 
         map = app.manager.get(LoadingScreen.MAP);
-        tmr = new OrthogonalTiledMapRenderer(map);
+        tmr = new OrthogonalTiledMapRenderer(map, app.batch);
 
         MapProperties props = map.getProperties();
         levelWidth = props.get("width", Integer.class);
@@ -73,13 +82,31 @@ public class TestStage2 implements Screen {
 
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
 
-        bkg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
-        bkg.setRegion(bkg, 0, 0, Constants.V_WIDTH, Constants.V_HEIGHT);
-        atlas = app.manager.get(LoadingScreen.BKG_ATLAS, TextureAtlas.class);
-        rbg = new ParallaxBackground(new ParallaxLayer[]{
-                new ParallaxLayer(bkg, new Vector2(0.1f,0), new Vector2(), new Vector2()),
-                new ParallaxLayer(atlas.findRegion("cloud"),new Vector2(0.2f,0),new Vector2(0,Constants.V_HEIGHT-350),new Vector2(0, 0)),
-        }, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(85,0));
+        //bkg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
+        //bkg.setRegion(bkg, 0, 0, Constants.V_WIDTH, Constants.V_HEIGHT);
+        //atlas = app.manager.get(LoadingScreen.BKG_ATLAS, TextureAtlas.class);
+        //rbg = new ParallaxBackground(app, new ParallaxLayer[]{
+        //        new ParallaxLayer(bkg, new Vector2(.01f,0), new Vector2(0,0), new Vector2()),
+        //        new ParallaxLayer(atlas.findRegion("bg"), new Vector2(.01f,0), new Vector2(0,0), new Vector2()),
+        //        new ParallaxLayer(atlas.findRegion("cloud"),new Vector2(0.06f,0),new Vector2(0,Constants.V_HEIGHT-450),new Vector2(0, 0)),
+        //}, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(85,0));
+        bg5a = new TextureRegion(app.manager.get(LoadingScreen.BKG5A, Texture.class));
+        bg5b = new TextureRegion(app.manager.get(LoadingScreen.BKG5B, Texture.class));
+        bg5c = new TextureRegion(app.manager.get(LoadingScreen.BKG5C, Texture.class));
+        bg5d = new TextureRegion(app.manager.get(LoadingScreen.BKG5D, Texture.class));
+        bg5e = new TextureRegion(app.manager.get(LoadingScreen.BKG5E, Texture.class));
+        bg5f = new TextureRegion(app.manager.get(LoadingScreen.BKG5F, Texture.class));
+        bg5g = new TextureRegion(app.manager.get(LoadingScreen.BKG5G, Texture.class));
+
+        rbg = new ParallaxBackground(app, new ParallaxLayer[]{
+                new ParallaxLayer(bg5g, new Vector2(.02f,0f), new Vector2(0,0), new Vector2()),
+                new ParallaxLayer(bg5f, new Vector2(.04f,0f), new Vector2(0,275), new Vector2(0, 400)),
+                new ParallaxLayer(bg5e, new Vector2(.08f,0f), new Vector2(0,0), new Vector2(0, 400)),
+                new ParallaxLayer(bg5d, new Vector2(.16f,0), new Vector2(0,0), new Vector2(0, 400)),
+                new ParallaxLayer(bg5c, new Vector2(.24f,0), new Vector2(0,0), new Vector2(0, 400)),
+                new ParallaxLayer(bg5b, new Vector2(.32f,0), new Vector2(0,0), new Vector2(0, 400)),
+                new ParallaxLayer(bg5a, new Vector2(.64f,0), new Vector2(0,0), new Vector2(0, 320)),
+        }, 0, 0,new Vector2(285,0));
     }
 
 
@@ -91,17 +118,13 @@ public class TestStage2 implements Screen {
         update(delta);
         stage.draw();
 
-        //app.batch.begin();
-        //app.batch.draw(bkg, 0, 0, Constants.V_WIDTH, Constants.V_HEIGHT);
-        //app.batch.end();
-
         rbg.render(delta);
 
         tmr.setView(app.camera);
         tmr.render();
 
         //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
-        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
         //keys.render(delta, keys.keyBody);
@@ -109,7 +132,6 @@ public class TestStage2 implements Screen {
         hud.stage.draw();
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-
         app.batch.begin();
         app.font.draw(app.batch, "Cam X:" + app.camera.position.x, 24, 564);
         app.font.draw(app.batch, "Cam Y:" + app.camera.position.y, 24, 534);
