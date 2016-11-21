@@ -106,7 +106,7 @@ public class TestStage2 implements Screen {
                 new ParallaxLayer(bg5c, new Vector2(.24f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5b, new Vector2(.32f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5a, new Vector2(.64f,0), new Vector2(0,0), new Vector2(0, 320)),
-        }, 0, 0,new Vector2(285,0));
+        }, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(285,0));
     }
 
 

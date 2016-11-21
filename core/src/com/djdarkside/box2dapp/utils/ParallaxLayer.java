@@ -11,6 +11,7 @@ public class ParallaxLayer {
     public Vector2 parallaxRatio;
     public Vector2 startPosition;
     public Vector2 padding ;
+
     public ParallaxLayer(TextureRegion region,Vector2 parallaxRatio,Vector2 padding){
         this(region, parallaxRatio, new Vector2(0,0),padding);
     }
