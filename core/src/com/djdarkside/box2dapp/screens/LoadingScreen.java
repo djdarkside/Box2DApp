@@ -52,6 +52,7 @@ public class LoadingScreen implements Screen {
     public static final String BKG5E = "images/bg1/bg5_e.png";
     public static final String BKG5F = "images/bg1/bg5_f.png";
     public static final String BKG5G = "images/bg1/bg5_g.png";
+    public static final String COL = "images/bg1/col.png";
 
     private float progress;
     private ShapeRenderer renderer;
@@ -89,6 +90,7 @@ public class LoadingScreen implements Screen {
         app.manager.load(BKG5E, Texture.class);
         app.manager.load(BKG5F, Texture.class);
         app.manager.load(BKG5G, Texture.class);
+        app.manager.load(COL, Texture.class);
     }
 
     public void update(float delta) {

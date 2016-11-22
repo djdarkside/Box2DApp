@@ -42,6 +42,7 @@ public class TestStage2 implements Screen {
 
     public static float xPos;
     private ParallaxBackground rbg;
+    private ParallaxForeground forg;
     private TextureAtlas atlas;
     private TextureRegion bkg;
 
@@ -53,6 +54,7 @@ public class TestStage2 implements Screen {
     private TextureRegion bg5e;
     private TextureRegion bg5f;
     private TextureRegion bg5g;
+    private TextureRegion col;
 
     public TestStage2(final Application app) {
         this.app = app;
@@ -97,6 +99,7 @@ public class TestStage2 implements Screen {
         bg5e = new TextureRegion(app.manager.get(LoadingScreen.BKG5E, Texture.class));
         bg5f = new TextureRegion(app.manager.get(LoadingScreen.BKG5F, Texture.class));
         bg5g = new TextureRegion(app.manager.get(LoadingScreen.BKG5G, Texture.class));
+        col = new TextureRegion(app.manager.get(LoadingScreen.COL, Texture.class));
 
         rbg = new ParallaxBackground(app, new ParallaxLayer[]{
                 new ParallaxLayer(bg5g, new Vector2(.02f,0f), new Vector2(0,0), new Vector2()),
@@ -107,6 +110,10 @@ public class TestStage2 implements Screen {
                 new ParallaxLayer(bg5b, new Vector2(.32f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5a, new Vector2(.64f,0), new Vector2(0,0), new Vector2(0, 320)),
         }, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(285,0));
+
+        forg = new ParallaxForeground(app, new ParallaxLayer[]{
+                new ParallaxLayer(col, new Vector2(3.0f,.10f), new Vector2(0,0), new Vector2()),
+        }, Constants.V_WIDTH, 0,new Vector2(0,0));
     }
 
 
@@ -124,7 +131,7 @@ public class TestStage2 implements Screen {
         tmr.render();
 
         //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
         //keys.render(delta, keys.keyBody);
@@ -147,6 +154,8 @@ public class TestStage2 implements Screen {
         app.font.draw(app.batch, "Controller: " + player3.hasControllers, 24, 204);
 
         app.batch.end();
+
+        //forg.render(delta);
     }
 
     public void update(float delta) {
