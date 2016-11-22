@@ -112,8 +112,8 @@ public class TestStage2 implements Screen {
         }, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(285,0));
 
         forg = new ParallaxForeground(app, new ParallaxLayer[]{
-                new ParallaxLayer(col, new Vector2(3.0f,.10f), new Vector2(0,0), new Vector2()),
-        }, Constants.V_WIDTH, 0,new Vector2(0,0));
+                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(250,0), new Vector2()),
+        }, Constants.V_WIDTH, 0, new Vector2(0,0));
     }
 
 
@@ -155,7 +155,7 @@ public class TestStage2 implements Screen {
 
         app.batch.end();
 
-        //forg.render(delta);
+        forg.render(delta);
     }
 
     public void update(float delta) {
