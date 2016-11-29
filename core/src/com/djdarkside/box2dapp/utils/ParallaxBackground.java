@@ -1,5 +1,6 @@
 package com.djdarkside.box2dapp.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,10 +29,8 @@ public class ParallaxBackground {
         this.app = app;
         this.layers = layers;
         this.speed.set(speed);
-        this.width = width;
-        this.height = height;
         camera = app.camera;//new OrthographicCamera(width, height);
-        batch = new SpriteBatch();
+        batch = app.batch;//new SpriteBatch();
     }
     //Original
     //public ParallaxBackground(ParallaxLayer[] layers,float width,float height,Vector2 speed){
@@ -42,10 +41,11 @@ public class ParallaxBackground {
     //}
 
     public void render(float delta){
-        this.camera.position.add(speed.x * delta, speed.y * delta, 0);
+        //delta = Gdx.graphics.getDeltaTime();
+        //this.camera.position.add(speed.x * delta, speed.y * delta, 0);
         for(ParallaxLayer layer : layers){
-            //batch.setProjectionMatrix(camera.projection);
             batch.setProjectionMatrix(camera.projection);
+            //batch.setProjectionMatrix(camera.combined);
             batch.begin();
             float currentX = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth() + layer.padding.x);
             if (speed.x < 0) currentX += -(layer.region.getRegionWidth() + layer.padding.x);

@@ -109,11 +109,12 @@ public class TestStage2 implements Screen {
                 new ParallaxLayer(bg5c, new Vector2(.24f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5b, new Vector2(.32f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5a, new Vector2(.64f,0), new Vector2(0,0), new Vector2(0, 320)),
-        }, Constants.V_WIDTH, Constants.V_HEIGHT,new Vector2(285,0));
+        }, 0, 0,new Vector2(285,0));
 
         forg = new ParallaxForeground(app, new ParallaxLayer[]{
-                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(250,0), new Vector2()),
+                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(500,175), new Vector2()),
         }, Constants.V_WIDTH, 0, new Vector2(0,0));
+
     }
 
 

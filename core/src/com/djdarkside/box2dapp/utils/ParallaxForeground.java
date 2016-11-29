@@ -30,21 +30,24 @@ public class ParallaxForeground {
         this.width = width;
         this.height = height;
         camera = app.camera;//new OrthographicCamera(width, height);
-        batch = new SpriteBatch();
+        batch = app.batch;
     }
 
 
     // Needs to be rendered after all maps and backgrounds
     public void render(float delta) {
-        this.camera.position.add(speed.x * delta, speed.y * delta, 0);
+        //this.camera.position.add(speed.x * delta, speed.y * delta, 0);
         for(ParallaxLayer layer : layers){
-            //batch.setProjectionMatrix(camera.projection);
             batch.setProjectionMatrix(camera.projection);
+            //batch.setProjectionMatrix(camera.combined);
             batch.begin();
             float currentX = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth() + layer.padding.x);
             if (speed.x < 0) currentX += -(layer.region.getRegionWidth() + layer.padding.x);
             do {
-                float currentY = -camera.position.y * layer.parallaxRatio.y % (layer.region.getRegionHeight() + layer.padding.y);
+                //This seems to fix the layers moving up and down on the y axis
+                float currentY = -camera.position.y;
+                //Original
+                //float currentY = -camera.position.y * layer.parallaxRatio.y % (layer.region.getRegionHeight() + layer.padding.y);
                 if (speed.y < 0) currentY += -(layer.region.getRegionHeight() + layer.padding.y);
                 do {
                     batch.draw(layer.region,
