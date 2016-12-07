@@ -102,9 +102,9 @@ public class TestStage2 implements Screen {
         col = new TextureRegion(app.manager.get(LoadingScreen.COL, Texture.class));
 
         rbg = new ParallaxBackground(app, new ParallaxLayer[]{
-                new ParallaxLayer(bg5g, new Vector2(.02f,0f), new Vector2(0,0), new Vector2()),
-                new ParallaxLayer(bg5f, new Vector2(.04f,0f), new Vector2(0,275), new Vector2(0, 400)),
-                new ParallaxLayer(bg5e, new Vector2(.08f,0f), new Vector2(0,0), new Vector2(0, 400)),
+                new ParallaxLayer(bg5g, new Vector2(.02f,0), new Vector2(0,0), new Vector2()),
+                new ParallaxLayer(bg5f, new Vector2(.04f,0), new Vector2(0,275), new Vector2(0, 400)),
+                new ParallaxLayer(bg5e, new Vector2(.08f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5d, new Vector2(.16f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5c, new Vector2(.24f,0), new Vector2(0,0), new Vector2(0, 400)),
                 new ParallaxLayer(bg5b, new Vector2(.32f,0), new Vector2(0,0), new Vector2(0, 400)),
@@ -112,7 +112,7 @@ public class TestStage2 implements Screen {
         }, 0, 0,new Vector2(285,0));
 
         forg = new ParallaxForeground(app, new ParallaxLayer[]{
-                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(500,175), new Vector2()),
+                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(400,175), new Vector2()),
         }, Constants.V_WIDTH, 0, new Vector2(0,0));
 
     }
@@ -126,7 +126,7 @@ public class TestStage2 implements Screen {
         update(delta);
         stage.draw();
 
-        rbg.render(delta);
+        rbg.render(delta,false);
 
         tmr.setView(app.camera);
         tmr.render();
@@ -173,7 +173,6 @@ public class TestStage2 implements Screen {
         float startY = app.camera.viewportHeight / 2;
         CameraStyles.camBoundry(app.camera, startX, startY, levelWidth * Constants.PPM - startX * 2, levelHeight * Constants.PPM - startY * 2);
 
-        tmr.setView(app.camera);
         player3.update(delta);
 
         hud.update(delta);

@@ -14,8 +14,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
-public class Gamepad implements ControllerListener {
+//NOT BEING USED
 
+public class Gamepad {//implements ControllerListener {
+/*
 	SpriteBatch batch;
    Sprite sprite;
    BitmapFont font;
@@ -132,11 +134,10 @@ public class Gamepad implements ControllerListener {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.controllers.ControllerListener#buttonDown(com.badlogic.gdx.controllers.Controller, int)
-	 */
+
 	public boolean buttonDown() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+*/
 }

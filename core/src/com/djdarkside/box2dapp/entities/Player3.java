@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.input.XBox360Pad;
@@ -107,6 +106,18 @@ public class Player3 {
     private void initBody() {
         playerBody = WorldUtils.createPlayer(world, 140, 140, 18, 30, false, true, 1.0f, true);
         playerBody.setUserData(playerSprite);
+    }
+
+    private void attack(Body body) {
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox((18 / Constants.PPM), 2 / Constants.PPM);
+        fdef.shape = shape;
+        fdef.isSensor = true;
+
+        body.createFixture(fdef);
+        shape.dispose();
+
     }
 
     public void update(float delta) {
@@ -217,21 +228,30 @@ public class Player3 {
 
     public void inputUpdate(float delta) {
         currentState = playerState.STANDING;
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             setLeftMove(true);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             setRightMove(true);
         } else {
             setLeftMove(false);
             setRightMove(false);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             if (currentState != playerState.JUMPING) {
                 //isJumping = true;
                 jump(delta);
             } else {
                 //isJumping = false;
             }
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+            System.out.println("Exited");
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            attack(playerBody);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.P)) {
