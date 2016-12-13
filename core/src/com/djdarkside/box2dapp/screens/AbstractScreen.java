@@ -1,27 +1,31 @@
 package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
+import com.djdarkside.box2dapp.utils.Constants;
 
 /**
  * Created by design on 12/12/2016.
  */
 public abstract class AbstractScreen implements Screen {
     protected Application app;
+    protected Stage stage;
 
     public AbstractScreen(Application app) {
         this.app = app;
+        stage = new Stage(new FitViewport(Constants.V_WIDTH * Constants.SCALE, Constants.V_HEIGHT * Constants.SCALE));
     }
-
-    public abstract void render (float deltaTime);
-    public abstract void resize (int width, int height);
+    public abstract void render (float delta);
+    public void resize (int width, int height) {
+        stage.setViewport(new FitViewport(width * Constants.SCALE, height * Constants.SCALE));
+    }
     public abstract void show ();
     public abstract void hide ();
     public abstract void pause ();
-    //public void resume () {
-    //    Assets.instance.init(new AssetManager());
-    //}
-    //public void dispose () {
-    //    Assets.instance.dispose();
-    //}
+    public abstract void resume ();
+    public abstract void dispose ();
+
+
 }

@@ -12,8 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
@@ -32,6 +31,17 @@ public class SettingsMenu implements Screen {
     private Skin skin;
     private ShapeRenderer renderer;
     private TextButton buttonController, buttonResolution, buttonBack;
+
+    private Window winOptions;
+    private TextButton btnWinOptSave;
+    private TextButton btnWinOptCancel;
+    private CheckBox chkSound;
+    private Slider sldSound;
+    private CheckBox chkMusic;
+    private Slider sldMusic;
+    //private SelectBox<CharacterSkin> selCharSkin;
+    private Image imgCharSkin;
+    private CheckBox chkShowFpsCounter;
 
     public SettingsMenu(final Application app) {
         this.app = app;
