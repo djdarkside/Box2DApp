@@ -177,7 +177,7 @@ public class TestStage2 implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        stage.setViewport(new FitViewport(width * Constants.SCALE, height * Constants.SCALE));
     }
     @Override
     public void pause() {
