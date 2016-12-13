@@ -83,7 +83,7 @@ public class MainMenu implements Screen {
         buttonSettings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //app.setScreen(app.tStage);
+                app.setScreen(app.sMenu);
             }
         });
 

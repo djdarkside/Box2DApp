@@ -23,6 +23,7 @@ public class Application extends Game {
     public PlayStage pStage;
     public TestStage tStage;
     public TestStage2 tStage2;
+    public TestStage3 tStage3;
     public GameOver gOver;
     public SettingsMenu sMenu;
 
@@ -40,6 +41,7 @@ public class Application extends Game {
         pStage = new PlayStage(this);
         tStage = new TestStage(this);
         tStage2 = new TestStage2(this);
+        tStage3 = new TestStage3(this);
         gOver = new GameOver(this);
         sMenu = new SettingsMenu(this);
         this.setScreen(lStage);

@@ -140,22 +140,19 @@ public class TestStage2 implements Screen {
         hud.stage.draw();
 
         app.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+
         app.batch.begin();
         app.font.draw(app.batch, "Cam X:" + app.camera.position.x, 24, 564);
         app.font.draw(app.batch, "Cam Y:" + app.camera.position.y, 24, 534);
-
         app.font.draw(app.batch, "Player State:" + player3.currentState, 24, 434);
-
         app.font.draw(app.batch, "Box Pos X:" + player3.getPlayerBody().getPosition().x, 24, 334);
         app.font.draw(app.batch, "Box Pos Y:" + player3.getPlayerBody().getPosition().y, 24, 304);
-
         app.font.draw(app.batch, "Pos X:" + player3.getPlayerBody().getPosition().x * Constants.PPM, 24, 264);
         app.font.draw(app.batch, "Pos Y:" + player3.getPlayerBody().getPosition().y * Constants.PPM, 24, 234);
-
         app.font.draw(app.batch, "Controller: " + player3.hasControllers, 24, 204);
-
         app.batch.end();
 
+        //Render Foreground
         forg.render(delta);
     }
 

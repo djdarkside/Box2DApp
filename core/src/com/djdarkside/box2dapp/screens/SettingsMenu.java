@@ -3,15 +3,24 @@ package com.djdarkside.box2dapp.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.utils.Constants;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
 
 /**
  * Created by design on 11/18/2016.
@@ -40,10 +49,23 @@ public class SettingsMenu implements Screen {
         skin.add("default-font", app.font);
         skin.load(Gdx.files.internal(LoadingScreen.UISKINJSON));
         initButtons();
+
+
     }
 
     public void initButtons() {
-        //Make Buttons
+        buttonBack = new TextButton("Back", skin, "default");
+        buttonBack.setPosition(Constants.V_WIDTH / 2 - 140, 120);
+        buttonBack.setSize(280, 60);
+        buttonBack.addAction(sequence(alpha(0), parallel(fadeIn(.5f), moveBy(0, -20, .5f, Interpolation.pow5Out))));
+        buttonBack.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                app.setScreen(app.mStage);
+            }
+        });
+
+        stage.addActor(buttonBack);
     }
 
     private void update(float delta) {
@@ -55,14 +77,20 @@ public class SettingsMenu implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        app.batch.begin();
-
-        //render stuff
-
-        app.batch.end();
+        generateMenus(app.batch, app.font);
 
         update(delta);
         stage.draw();
+    }
+
+    public void generateMenus(SpriteBatch batch, BitmapFont font) {
+        font.setColor(Color.WHITE);
+        batch.begin();
+        font.draw(app.batch, "RESOLUTION: ", Constants.V_WIDTH / 2 - 224, 494);
+        font.draw(app.batch, "CONTROLLER: ", Constants.V_WIDTH / 2 - 224, 464);
+        font.draw(app.batch, "SOUND VOLUME: ", Constants.V_WIDTH / 2 - 224, 434);
+        font.draw(app.batch, "MUSIC VOLUME: ", Constants.V_WIDTH / 2 - 224, 404);
+        batch.end();
     }
 
     @Override
@@ -89,6 +117,5 @@ public class SettingsMenu implements Screen {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-
     }
 }
