@@ -18,6 +18,7 @@ public abstract class AbstractScreen implements Screen {
         stage = new Stage(new FitViewport(Constants.V_WIDTH * Constants.SCALE, Constants.V_HEIGHT * Constants.SCALE));
     }
     public abstract void render (float delta);
+    @Override
     public void resize (int width, int height) {
         stage.setViewport(new FitViewport(width * Constants.SCALE, height * Constants.SCALE));
     }
@@ -25,7 +26,10 @@ public abstract class AbstractScreen implements Screen {
     public abstract void hide ();
     public abstract void pause ();
     public abstract void resume ();
-    public abstract void dispose ();
+    @Override
+    public void dispose () {
+        stage.dispose();
+    }
 
 
 }

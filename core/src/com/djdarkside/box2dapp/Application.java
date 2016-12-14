@@ -1,6 +1,7 @@
 package com.djdarkside.box2dapp;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,6 +30,7 @@ public class Application extends Game {
 
     @Override
 	public void create () {
+        Gdx.app.setLogLevel(com.badlogic.gdx.Application.LOG_DEBUG);
         manager = new AssetManager();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.V_WIDTH / Constants.SCALE, Constants.V_HEIGHT / Constants.SCALE);
