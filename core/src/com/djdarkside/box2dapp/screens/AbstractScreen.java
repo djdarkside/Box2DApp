@@ -26,6 +26,7 @@ public abstract class AbstractScreen implements Screen {
     public abstract void hide ();
     public abstract void pause ();
     public abstract void resume ();
+
     @Override
     public void dispose () {
         stage.dispose();

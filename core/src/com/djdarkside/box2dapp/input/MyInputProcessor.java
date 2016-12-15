@@ -1,21 +1,74 @@
 package com.djdarkside.box2dapp.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.entities.Player;
+import com.djdarkside.box2dapp.entities.Player3;
 
 /**
  * Created by design on 11/16/2016.
  */
 public class MyInputProcessor implements ControllerListener, InputProcessor {
 
-    public MyInputProcessor(Player player, World world) {
+    private final Application app;
+    private Body body;
+    private Stage stage;
+    private Player3 player;
 
+    public MyInputProcessor(final Application app, Body body, Stage stage) {
+        this.app = app;
+        this.body = body;
+        this.stage = stage;
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    public void updateMotion(float delta) {
+        float horizontalForce = 0;
+        player.currentState = Player3.playerState.STANDING;
+        if (player.movingLeft) {
+            horizontalForce -= 1;
+            player.currentState = Player3.playerState.WALKING;
+            player.index = 1;
+        }
+        if (player.movingRight) {
+            horizontalForce += 1;
+            player.currentState = Player3.playerState.WALKING;
+            player.index = 2;
+        }
+        player.getPlayerBody().setLinearVelocity(horizontalForce * 5f, player.getPlayerBody().getLinearVelocity().y);
+    }
+
+    public void setLeftMove(boolean t) {
+        if(player.movingRight && t) player.movingRight = false;
+        player.movingLeft = t;
+    }
+    public void setRightMove(boolean t) {
+        if(player.movingLeft && t) player.movingLeft = false;
+        player.movingRight = t;
+    }
+
+    public void jump(float delta) {
+        //if (isJumping == true) {
+        if (app.contact.isPlayerOnGround()) {
+            player.getPlayerBody().setLinearVelocity(player.getPlayerBody().getLinearVelocity().x, 0);
+            player.getPlayerBody().applyForceToCenter(0, 320f, true);
+            player.currentState = Player3.playerState.JUMPING;
+        }
+        //}
+        //isJumping = false;
+    }
+
+    public void update(float delta) {
+        updateMotion(delta);
     }
 
     ////////////////////////Input

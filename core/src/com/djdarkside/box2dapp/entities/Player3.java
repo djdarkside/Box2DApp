@@ -47,8 +47,8 @@ public class Player3 {
     public static int index = 2;
 
     public boolean hasControllers = true;
-    public boolean movingRight = false;
-    public boolean movingLeft = false;
+    public static boolean movingRight = false;
+    public static boolean movingLeft = false;
     public boolean isJumping = false;
 
     public Player3(final Application app, World world) {
