@@ -84,6 +84,7 @@ public class TestStage2 implements Screen {
 
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
 
+
         //bkg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
         //bkg.setRegion(bkg, 0, 0, Constants.V_WIDTH, Constants.V_HEIGHT);
         //atlas = app.manager.get(LoadingScreen.BKG_ATLAS, TextureAtlas.class);

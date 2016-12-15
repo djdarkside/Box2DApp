@@ -1,12 +1,11 @@
 package com.djdarkside.box2dapp.utils;
 
-import com.badlogic.gdx.maps.Map;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.djdarkside.box2dapp.entities.Player3;
 
 /**
  * Created by djdarkside on 10/17/2016.
@@ -84,7 +83,6 @@ public class TiledObjectUtil {
                 0.0f);
         return polygon;
     }
-
     private static CircleShape getCircle(CircleMapObject circleObject) {
         Circle circle = circleObject.getCircle();
         CircleShape circleShape = new CircleShape();
@@ -100,7 +98,6 @@ public class TiledObjectUtil {
         circleShape.setPosition(new Vector2(ellipse.x / PPM, ellipse.y / PPM));
         return circleShape;
     }
-
     public static PolygonShape getPolygon(PolygonMapObject polygonObject) {
         PolygonShape polygon = new PolygonShape();
         float[] vertices = polygonObject.getPolygon().getTransformedVertices();
@@ -115,7 +112,6 @@ public class TiledObjectUtil {
         polygon.set(worldVertices);
         return polygon;
     }
-
     private static ChainShape getPolyline(PolylineMapObject polylineObject) {
         float[] vertices = polylineObject.getPolyline().getTransformedVertices();
         Vector2[] worldVertices = new Vector2[vertices.length / 2];
@@ -129,6 +125,13 @@ public class TiledObjectUtil {
         ChainShape chain = new ChainShape();
         chain.createChain(worldVertices);
         return chain;
+    }
+
+    public static Body setPlayerSpawn(Map map, float pixels, World world, String mapLayer, Body body) {
+        PPM = pixels;
+        MapLayer layer = map.getLayers().get(mapLayer);
+
+        return body;
     }
 
     ///////////////////////////////////////////////////////MY STUFF
