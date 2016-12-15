@@ -1,6 +1,7 @@
 package com.djdarkside.box2dapp.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
@@ -74,6 +75,9 @@ public class MyInputProcessor implements ControllerListener, InputProcessor {
     ////////////////////////Input
     @Override
     public boolean keyDown(int keycode) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+            setLeftMove(true);
+        }
         return false;
     }
 
