@@ -88,6 +88,51 @@ public class WorldUtils {
         return pBody;
     }
 
+    public static Body createKey(World world, int xPos, int yPos, int width, int height, boolean isStatic, boolean fixed) {
+        Body pBody;
+        BodyDef def = new BodyDef();
+
+        if (isStatic) {
+            def.type = BodyDef.BodyType.StaticBody;
+        } else {
+            def.type = BodyDef.BodyType.DynamicBody;
+        }
+
+        def.position.set(xPos / Constants.PPM, yPos / Constants.PPM);
+        def.allowSleep = false;
+
+        if (fixed) {
+            def.fixedRotation = true;
+        } else {
+            def.fixedRotation = false;
+        }
+
+        pBody = world.createBody(def);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2 / Constants.PPM, height / 2 / Constants.PPM);
+        FixtureDef fDefBody = new FixtureDef();
+        fDefBody.shape = shape;
+        fDefBody.filter.categoryBits = Constants.KEY_BIT;
+        fDefBody.filter.maskBits = Constants.FLOOR_BIT;
+        //fDefBody.filter.maskBits = Constants.PLAYER_BIT;
+        pBody.createFixture(fDefBody);
+        shape.dispose();
+        //
+        PolygonShape key = new PolygonShape();
+        key.setAsBox((width / 4) / Constants.PPM, (height / 4) / Constants.PPM);
+        FixtureDef fDefKey = new FixtureDef();
+        fDefKey.shape = key;
+        fDefKey.isSensor = true;
+        //fDefKey.filter.maskBits = Constants.PLAYER_BIT;
+        //fDefKey.filter.maskBits = Constants.FLOOR_BIT;
+        pBody.createFixture(fDefKey).setUserData("Keys");
+        key.dispose();
+        //
+
+        return pBody;
+    }
+
     public static Body createCircle(World world, float xPos, float yPos, float radius, boolean isStatic, boolean fixed,
                                     float linearDamping) {
         Body pBody;

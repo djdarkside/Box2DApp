@@ -23,6 +23,7 @@ public class Hud implements Disposable {
     private boolean timeUp; // true when the world timer reaches 0
     private float timeCount;
     private static Integer score;
+    private static int keys;
 
     //Scene2D widgets
     private Label countdownLabel;
@@ -31,12 +32,14 @@ public class Hud implements Disposable {
     private Label levelLabel;
     private Label worldLabel;
     private Label marioLabel;
+    private static Label keyLabel;
 
 
     public Hud(SpriteBatch sb) {
         worldTimer = 300;
         timeCount = 0;
         score = 0;
+        keys = 0;
 
         stage = new Stage(new FitViewport(Constants.V_WIDTH, Constants.V_HEIGHT));
         //define a table used to organize our hud's labels
@@ -53,6 +56,7 @@ public class Hud implements Disposable {
         levelLabel = new Label("1-1", new Label.LabelStyle(Application.font, Color.WHITE));
         worldLabel = new Label("WORLD", new Label.LabelStyle(Application.font, Color.WHITE));
         marioLabel = new Label("KITTY", new Label.LabelStyle(Application.font, Color.WHITE));
+        keyLabel = new Label("Keys: " + keys, new Label.LabelStyle(Application.font, Color.WHITE));
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(marioLabel).expandX().padTop(10);
@@ -63,6 +67,7 @@ public class Hud implements Disposable {
         table.add(scoreLabel).expandX();
         table.add(levelLabel).expandX();
         table.add(countdownLabel).expandX();
+        table.add(keyLabel).expandX();
 
         //add our table to the stage
         stage.addActor(table);
@@ -84,6 +89,15 @@ public class Hud implements Disposable {
     public static void addScore(int value){
         score += value;
         scoreLabel.setText(String.format("%06d", score));
+    }
+
+    public static void addKey(int value) {
+        keys += value;
+        keyLabel.setText(String.format("%03d", keys));
+    }
+
+    public static int getKeys() {
+        return keys;
     }
 
     @Override

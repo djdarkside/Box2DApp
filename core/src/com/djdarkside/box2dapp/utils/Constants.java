@@ -14,4 +14,5 @@ public final class Constants {
     //Contact Bits
     public static final short FLOOR_BIT = 2;
     public static final short PLAYER_BIT = 4;
+    public static final short KEY_BIT = 8;
 }

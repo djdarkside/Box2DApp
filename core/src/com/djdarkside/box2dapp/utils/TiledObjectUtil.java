@@ -17,7 +17,7 @@ public class TiledObjectUtil {
 
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
     private static float PPM = 0;
-    public static int spawnPointX, spawnPointY;
+    public static int spawnPointX, spawnPointY, keySpawnPointX, keySpawnPointY;
 
     public static Array<Body> buildShapes(Map map, float pixels, World world, String mapLayer) {
         PPM = pixels;
@@ -148,8 +148,26 @@ public class TiledObjectUtil {
         if (!hasPlayer) {
             Gdx.app.log("Error", "Player spawn point is undefined in the level");
         }
-        System.out.println(spawnPointX);
-        System.out.println(spawnPointY);
+    }
+
+    public static void setKeySpawn(Map map) {
+        boolean hasKeys = false;
+        MapObjects objects = map.getLayers().get("key-spawn").getObjects();
+        Iterator<MapObject> objectIterator = objects.iterator();
+
+        while (objectIterator.hasNext()) {
+            MapObject object = objectIterator.next();
+
+            if (object.getProperties().get("toSpawn", String.class).equalsIgnoreCase("Key")) {
+                hasKeys = true;
+                keySpawnPointX = object.getProperties().get("x", float.class).intValue();
+                keySpawnPointY = object.getProperties().get("y", float.class).intValue();
+            }
+        }
+
+        if (!hasKeys) {
+            Gdx.app.log("Error", "Keys spawn point is undefined in the level");
+        }
     }
 
     ///////////////////////////////////////////////////////MY STUFF

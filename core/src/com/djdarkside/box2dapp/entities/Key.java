@@ -6,10 +6,7 @@ import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.djdarkside.box2dapp.Application;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
@@ -43,21 +40,18 @@ public class Key {
     }
 
     private void initSprite() {
-        keySprite.setSize(keySprite.getWidth() / Constants.PPM, keySprite.getHeight() / Constants.PPM);
+        keySprite.setSize((keySprite.getWidth() / 2) / Constants.PPM, (keySprite.getHeight() / 2) / Constants.PPM);
         keySprite.setOrigin(keySprite.getWidth() / 2, keySprite.getHeight() / 2);
     }
 
     private void initBody() {
-        BodyDef bdef;
-        bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        keyBody = world.createBody(bdef);
+        keyBody = WorldUtils.createKey(world, TiledObjectUtil.keySpawnPointX, TiledObjectUtil.keySpawnPointY, 10, 10, false, true);
         keyBody.setUserData(keySprite);
     }
 
     public void render(float delta, Body keyBody) {
         this.keyBody = keyBody;
-        //app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
+        app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
         app.batch.begin();
         world.getBodies(tempBodies);
         for(Body body : tempBodies) {
@@ -69,5 +63,9 @@ public class Key {
             }
         }
         app.batch.end();
+    }
+
+    public void dispose() {
+        world.dispose();
     }
 }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.djdarkside.box2dapp.Application;
+import com.djdarkside.box2dapp.entities.Key;
 import com.djdarkside.box2dapp.entities.Player2;
 import com.djdarkside.box2dapp.entities.Player3;
 import com.djdarkside.box2dapp.utils.*;
@@ -28,6 +29,7 @@ public class TestStage2 implements Screen {
 
     private final Application app;
     private Player3 player3;
+    private Key key;
     private World world;
 
     private Box2DDebugRenderer b2dr;
@@ -82,8 +84,10 @@ public class TestStage2 implements Screen {
 
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
         TiledObjectUtil.setPlayerSpawn(map);
+        TiledObjectUtil.setKeySpawn(map);
 
         player3 = new Player3(app, world);
+        key = new Key(app, world, "Yellow", map);
 
 
         //bkg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
@@ -131,13 +135,13 @@ public class TestStage2 implements Screen {
         rbg.render(delta,false);
 
         tmr.setView(app.camera);
-        tmr.render();
+        //tmr.render();
 
         //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
-        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
-        //keys.render(delta, keys.keyBody);
+        key.render(delta, key.keyBody);
 
         hud.stage.draw();
 
@@ -155,7 +159,7 @@ public class TestStage2 implements Screen {
         app.batch.end();
 
         //Render Foreground
-        forg.render(delta);
+        //forg.render(delta);
     }
 
     public void update(float delta) {
@@ -200,5 +204,6 @@ public class TestStage2 implements Screen {
         stage.dispose();
         hud.dispose();
         player3.dispose();
+        key.dispose();
     }
 }
