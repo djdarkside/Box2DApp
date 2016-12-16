@@ -47,6 +47,7 @@ public class TestStage3 implements Screen {
         map = app.manager.get(LoadingScreen.MAP);
         tmr = new OrthogonalTiledMapRenderer(map, app.batch);
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
+        TiledObjectUtil.setPlayerSpawn(map);
     }
 
     @Override

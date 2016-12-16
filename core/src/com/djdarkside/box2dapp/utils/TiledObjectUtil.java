@@ -1,11 +1,14 @@
 package com.djdarkside.box2dapp.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.djdarkside.box2dapp.entities.Player3;
+
+import java.util.Iterator;
 
 /**
  * Created by djdarkside on 10/17/2016.
@@ -14,6 +17,7 @@ public class TiledObjectUtil {
 
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
     private static float PPM = 0;
+    public static int spawnPointX, spawnPointY;
 
     public static Array<Body> buildShapes(Map map, float pixels, World world, String mapLayer) {
         PPM = pixels;
@@ -71,7 +75,6 @@ public class TiledObjectUtil {
         }
         return bodies;
     }
-
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
@@ -127,11 +130,26 @@ public class TiledObjectUtil {
         return chain;
     }
 
-    public static Body setPlayerSpawn(Map map, float pixels, World world, String mapLayer, Body body) {
-        PPM = pixels;
-        MapLayer layer = map.getLayers().get(mapLayer);
+    public static void setPlayerSpawn(Map map) {
+        boolean hasPlayer = false;
+        MapObjects objects = map.getLayers().get("player-spawn").getObjects();
+        Iterator<MapObject> objectIterator = objects.iterator();
 
-        return body;
+        while (objectIterator.hasNext()) {
+            MapObject object = objectIterator.next();
+
+            if (object.getProperties().get("toSpawn", String.class).equalsIgnoreCase("Player")) {
+                hasPlayer = true;
+                spawnPointX = object.getProperties().get("x", float.class).intValue();
+                spawnPointY = object.getProperties().get("y", float.class).intValue();
+            }
+        }
+
+        if (!hasPlayer) {
+            Gdx.app.log("Error", "Player spawn point is undefined in the level");
+        }
+        System.out.println(spawnPointX);
+        System.out.println(spawnPointY);
     }
 
     ///////////////////////////////////////////////////////MY STUFF

@@ -18,6 +18,7 @@ import com.djdarkside.box2dapp.input.XBox360Pad;
 import com.djdarkside.box2dapp.screens.LoadingScreen;
 import com.djdarkside.box2dapp.utils.Constants;
 import com.djdarkside.box2dapp.utils.MyContactListener;
+import com.djdarkside.box2dapp.utils.TiledObjectUtil;
 import com.djdarkside.box2dapp.utils.WorldUtils;
 
 
@@ -104,7 +105,8 @@ public class Player3 {
         playerSpriteLeft.setOrigin(playerSpriteLeft.getWidth() / 2, playerSpriteLeft.getHeight() / 2);
     }
     private void initBody() {
-        playerBody = WorldUtils.createPlayer(world, 140, 140, 18, 30, false, true, 1.0f, true);
+        //playerBody = WorldUtils.createPlayer(world, 140, 140, 18, 30, false, true, 1.0f, true);
+        playerBody = WorldUtils.createPlayer(world, TiledObjectUtil.spawnPointX, TiledObjectUtil.spawnPointY, 18, 30, false, true, 1.0f, true);
         playerBody.setUserData(playerSprite);
     }
 

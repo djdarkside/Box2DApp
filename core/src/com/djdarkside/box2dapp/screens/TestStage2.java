@@ -73,8 +73,6 @@ public class TestStage2 implements Screen {
 
         b2dr = new Box2DDebugRenderer();
 
-        player3 = new Player3(app, world);
-
         map = app.manager.get(LoadingScreen.MAP);
         tmr = new OrthogonalTiledMapRenderer(map, app.batch);
 
@@ -83,6 +81,9 @@ public class TestStage2 implements Screen {
         levelHeight = props.get("height", Integer.class);
 
         TiledObjectUtil.buildShapes(map, Constants.PPM, world, "collision-layer");
+        TiledObjectUtil.setPlayerSpawn(map);
+
+        player3 = new Player3(app, world);
 
 
         //bkg = new TextureRegion(app.manager.get(LoadingScreen.BACKGROUND, Texture.class));
@@ -113,7 +114,7 @@ public class TestStage2 implements Screen {
         }, 0, 0,new Vector2(285,0));
 
         forg = new ParallaxForeground(app, new ParallaxLayer[]{
-                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(400,175), new Vector2()),
+                new ParallaxLayer(col, new Vector2(1.85f,0), new Vector2(2048,175), new Vector2(1750,0)),
         }, Constants.V_WIDTH, 0, new Vector2(0,0));
 
     }
@@ -161,10 +162,10 @@ public class TestStage2 implements Screen {
         world.step(1 / 60f, 6, 2);
         stage.act(delta);
 
-        if (player3.getPlayerBody().getPosition().y <= 0) {
-            stage.clear();
-            app.setScreen(app.gOver);
-        }
+        //if (player3.getPlayerBody().getPosition().y <= 0) {
+        //    stage.clear();
+        //    app.setScreen(app.gOver);
+        //}
 
         CameraStyles.lerpToTarget(app.camera, player3.getPlayerBody().getPosition().scl(Constants.PPM));
         float startX = app.camera.viewportWidth / 2;

@@ -3,9 +3,14 @@
  <tileset firstgid="1" name="dawn_of_the_gods" tilewidth="32" tileheight="32" tilecount="1927" columns="41">
   <image source="dawn_of_the_gods.png" trans="ff00ff" width="1312" height="1504"/>
  </tileset>
+ <layer name="Tile Layer 2" width="80" height="22">
+  <data encoding="base64" compression="zlib">
+   eJzt0LEJgEAMhtE0uT1c56bUcXQqBblCvCKFne/BDyHlFwEAAAAA8B9Lm4+a3t7Tr65PWulXN/qtGbHlfetXN/rtV7sjnz++dQJLQAcY
+  </data>
+ </layer>
  <layer name="Tile Layer 1" width="80" height="22">
   <data encoding="base64" compression="zlib">
-   eJzt0MkJgDAQheHBQIo1erELl2pcCrAznydFCGgObvwfPLIwGcKYAQAAAAAAAADwXrUza5RW6dzTv/meXjMblFGZmN9ls9/2lY/X/U2emQWliKxhdz7enU3qu7v6pfRda0tlAaQ4KGo=
+   eJzt01sKQEAYhuHJlCvFZmzHAhxu7MJhNQ4LsDOfKCKRC1LvU2+aP6ZpijEAAAAAAAAA/sS3xwL79akA3OHpXy1UqSpV23mGa9M9hapRrepUv8y4w2uRnRvcdZa763wvdoxJVHryTDbr/exuT797a78n+07vZmoExsYrBw==
   </data>
  </layer>
  <objectgroup name="collision-layer">
@@ -14,9 +19,13 @@
   </object>
  </objectgroup>
  <objectgroup name="player-spawn">
-  <object id="2" x="33" y="639" width="32" height="32"/>
+  <object id="2" name="Player Spawn Location" x="42" y="650" width="12" height="12">
+   <properties>
+    <property name="toSpawn" value="Player"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="door-layer">
-  <object id="4" x="608" y="608" width="64" height="64"/>
+  <object id="4" x="2272" y="608" width="64" height="64"/>
  </objectgroup>
 </map>
