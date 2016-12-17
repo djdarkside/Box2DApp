@@ -33,9 +33,9 @@ public class MyContactListener implements ContactListener {
         if (fb.getUserData() != null && fb.getUserData().equals("Feet")) {
             playerOnGround = false;
         }
-        if (fa.getUserData() != null && fa.getUserData().equals("Keys") || fb.getUserData() != null && fb.getUserData().equals("Keys")) {
-            Hud.addKey(1);
-        }
+        //if (fa.getUserData() != null && fa.getUserData().equals("Keys") || fb.getUserData() != null && fb.getUserData().equals("Keys")) {
+        //    Hud.addKey(1);
+        //}
     }
 
     public boolean isPlayerOnGround() {

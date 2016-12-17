@@ -51,7 +51,7 @@ public class Key {
 
     public void render(float delta, Body keyBody) {
         this.keyBody = keyBody;
-        app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
+        //app.batch.setProjectionMatrix(app.camera.combined.scl(Constants.PPM));
         app.batch.begin();
         world.getBodies(tempBodies);
         for(Body body : tempBodies) {

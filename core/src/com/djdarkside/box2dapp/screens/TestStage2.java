@@ -135,10 +135,10 @@ public class TestStage2 implements Screen {
         rbg.render(delta,false);
 
         tmr.setView(app.camera);
-        //tmr.render();
+        tmr.render();
 
         //b2dCam.setToOrtho(false, Constants.V_WIDTH / Constants.PPM, Constants.V_HEIGHT / Constants.PPM);
-        b2dr.render(world, app.camera.combined.scl(Constants.PPM));
+        //b2dr.render(world, app.camera.combined.scl(Constants.PPM));
 
         player3.render(delta, true);
         key.render(delta, key.keyBody);
@@ -159,7 +159,7 @@ public class TestStage2 implements Screen {
         app.batch.end();
 
         //Render Foreground
-        //forg.render(delta);
+        forg.render(delta);
     }
 
     public void update(float delta) {
